@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Reservation {
     @Id
     @GeneratedValue
+    @Column(name = "reservation_id)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
