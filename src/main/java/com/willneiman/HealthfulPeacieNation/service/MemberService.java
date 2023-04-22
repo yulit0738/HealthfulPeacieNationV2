@@ -5,6 +5,7 @@ import com.willneiman.HealthfulPeacieNation.entity.Member;
 import com.willneiman.HealthfulPeacieNation.enums.LoginResult;
 import com.willneiman.HealthfulPeacieNation.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class MemberService {
     // 회원가입
     public Long signup(Member member){
         validateDuplicateMember(member);
+        member.setPassword(hashPassword(member.getPassword()));
         return memberRepository.save(member);
     }
 
@@ -35,11 +37,23 @@ public class MemberService {
     }
 
     // 로그인
-    public LoginResult loginCheck(LoginForm form){
+    public LoginResult loginCheck(LoginForm form) {
         Member member = memberRepository.findByUsername(form.getUsername());
-        if(member == null || !member.getPassword().equals(form.getPassword())) {
+        // 암호화된 비밀번호와 입력 비밀번호 비교 검증
+        if (member == null || !checkPassword(form.getPassword(), member.getPassword())) {
             return LoginResult.LOGIN_FAILED;
         }
         return LoginResult.LOGIN_SUCCESS;
     }
+
+    // 비밀번호 암호화
+    public String hashPassword(String plainTextPassword) {
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    }
+
+    // 비밀번호 검증
+    public boolean checkPassword(String plainPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainPassword, hashedPassword);
+    }
+
 }
