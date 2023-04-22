@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.Entity;
+package com.willneiman.HealthfulPeacieNation.entity;
 
 import javax.persistence.*;
 
@@ -11,14 +11,14 @@ public class OrderLine {
     private String id;
 
     @ManyToOne(fetch = LAZY)
-    @Column(name = "order_id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne(fetch = LAZY)
-    @Column(name = "member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne(fetch = LAZY)
-    @Column(name = "product_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 }

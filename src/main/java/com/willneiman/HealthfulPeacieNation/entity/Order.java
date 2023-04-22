@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.Entity;
+package com.willneiman.HealthfulPeacieNation.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

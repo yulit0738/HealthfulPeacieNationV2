@@ -1,0 +1,62 @@
+.error-message {
+        color : red;
+    }
+    body {
+	background-color: #17171f;
+}
+.signup-container{
+	margin: auto;
+	width: 350px;
+	height: auto;
+	border-radius: 25px;
+	box-sizing: border-box;
+	background-color: #17171f;
+	padding: 20px;
+	text-align: center;
+	}
+.page-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
+}
+.input-group {
+	margin: 15px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+	border-color: #5F32FF;
+	border-width: 2px; /* 포커스 상태에서의 border-width를 2px로 설정 */
+	outline: none;
+}
+.input-label {
+	align-self: flex-start;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+}
+input[type=text], input[type=password], input[type=email]{
+	width: 310px;
+	height: 45px;
+	box-sizing: border-box;
+	border: 1px solid #fff;
+	border-radius: 15px;
+	padding-left: 15px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #17171f;
+	transition: border-color 0.3s ease-in-out; /* border-width 속성에도 transition 추가 */
+}
+.submit-button {
+	width: 310px;
+	height: 60px;
+	cursor: pointer;
+	background-color: #5F32FF;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 15px;
+	border: none;
+	margin-bottom: 10px;
+}

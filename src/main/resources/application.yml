@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # or update
+      ddl-auto: none # or update
     properties:
       hibernate:
         #        show_sql: true 운영 환경에서는 system.out.으로 찍으면 안됨

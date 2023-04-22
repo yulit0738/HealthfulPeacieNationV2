@@ -1,0 +1,125 @@
+body {
+	background-color: #17171f;
+	color: white;
+}
+
+.menu-index {
+	background-color: #5F32FF;
+	color: #fff;
+	border-radius: 20px;
+	padding: 10px 20px;
+}
+
+.body-container-1 {
+	max-width: 800px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.body-1-title {
+	margin-top: 100px;
+	margin-bottom: 50px;
+	font-size : 24px;
+	font-weight: bold;
+	font-size: 30px;
+	animation: shake 2s ease-in-out infinite; /* 애니메이션 지정 */
+}
+
+@keyframes shake {
+  0% { transform: translateY(-15px); } /* 중간 위치 */
+  50% { transform: translateY(0); } /* 애니메이션 시작 위치 */
+  100% { transform: translateY(-15px); } /* 중간 위치 */
+}
+
+.body-container-logo {
+	background-color: #fff;
+	height: 300px;
+	display: flex;
+	justify-content: center;
+}
+
+.body-logo-component {
+	width: 500px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+}
+
+.body-logo {
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+}
+
+.body-container-text {
+	text-align: center;
+	height: 300px;
+	margin: 0 auto;
+	max-width: 800px;
+}
+
+.body-3-title {
+	margin-top: 60px;
+	font-size: 30px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+.body-3-content {
+	margin-top: 35px;
+	font-size: 18px;
+}
+
+.body-container-text-small {
+	text-align: center;
+	height: 200px;
+	margin: 0 auto;
+	max-width: 800px;
+}
+
+.trainers-iamges {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.trainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.trainer img {
+  margin-bottom: 10px;
+}
+
+.trainers-iamges a{
+	text-decoration: none;
+	color: #fff
+}
+
+.trainer-nav-contianer {
+	margin-top: 50px;
+	text-align: center;
+	margin-bottom: 100px;
+}
+
+.trainer-nav-btn {
+	padding: 10px 25px;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 25px;
+	border: none;
+	background-color: #5F32FF;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	color: #fff;
+}
+
+.trainer-nav-btn:hover {
+	background-color: #4124ad;
+}

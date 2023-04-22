@@ -1,9 +1,10 @@
-package com.willneiman.HealthfulPeacieNation.Entity;
+package com.willneiman.HealthfulPeacieNation.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,9 +12,10 @@ import java.util.List;
 
 @Entity
 @Getter
-//@Setter
+@Setter
 @NoArgsConstructor
 //@ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
 
     @Id @GeneratedValue
@@ -25,6 +27,7 @@ public class Member {
     private String name;
     private String phoneNumber;
     private String email;
+    @CreatedDate
     private LocalDateTime registrationDate;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

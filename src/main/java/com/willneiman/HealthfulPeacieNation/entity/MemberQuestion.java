@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.Entity;
+package com.willneiman.HealthfulPeacieNation.entity;
 
 import javax.persistence.*;
 
@@ -11,5 +11,10 @@ public class MemberQuestion {
     private String id;
 
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
+
+    private String question;
+
+    private String answer;
 }
