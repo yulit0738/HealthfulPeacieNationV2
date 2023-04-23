@@ -14,17 +14,21 @@
                 </a>
             </div>
             <div class="login-menu-group">
-                <button class="btn-login">로그인</button>
-                <dialog><div th:replace="members/login :: login"></div></dialog>
-                <div>
-                    <a th:href="@{/myOrder}" class="btn-mypage">마이페이지</a>
-                    <a th:href="@{/logoutPro}" class="btn-logout">로그아웃</a>
+                <div th:if="${session.member == null}">
+                    <button class="btn-login">로그인</button>
+                    <dialog><div th:replace="members/login :: login"></div></dialog>
                 </div>
-                <div class="user-information">
-                    <p>
-                        <span class="user-Id"> </span>님 환영합니다!
-                        <span> username <a th:href="@{/관리자페이지주소}" class="btn-admin">관리자모드</a><span>
-                    </p>
+                <div  th:if="${session.member != null}">
+                    <div>
+                        <a th:href="@{/myOrder}" class="btn-mypage">마이페이지</a>
+                        <a th:href="@{/logout}" class="btn-logout">로그아웃</a>
+                    </div>
+                    <div class="user-information">
+                        <p>
+                            <span class="user-Id" th:text="${session.member.username}"> </span>님 환영합니다!
+                            <span> <a th:href="@{/관리자페이지주소}" class="btn-admin">관리자모드</a><span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,5 +50,32 @@
             </nav>
         </div>
 </header>
+<script>
+	function disableScroll() {
+		document.body.style.overflow = "hidden";
+	}
+
+	function enableScroll() {
+		document.body.style.overflow = "auto";
+	}
+
+	const button = document.querySelector("button");
+	const dialog = document.querySelector("dialog");
+
+	button.addEventListener("click", function() {
+		dialog.showModal();
+		dialog.classList.add("open");
+	});
+
+	dialog.addEventListener("click", function(event) {
+		  if (event.target === dialog) {
+		    dialog.classList.add("closing");
+		    setTimeout(() => {
+		      dialog.close();
+		      dialog.classList.remove("closing");
+		    }, 290);
+		  }
+		});
+</script>
 </body>
 </html>

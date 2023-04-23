@@ -1,5 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
+import com.willneiman.HealthfulPeacieNation.entity.LoginForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
