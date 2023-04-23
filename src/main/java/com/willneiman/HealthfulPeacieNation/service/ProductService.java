@@ -1,6 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.Product;
+import com.willneiman.HealthfulPeacieNation.entity.product.Product;
 import com.willneiman.HealthfulPeacieNation.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class ProductService {
     public Product findProduct(Long id){
         return productRepository.findOne(id);
     }
-    
+
     // 상품 이름으로 찾기
     public Product findProductByName(String name){
         return productRepository.findByName(name);
