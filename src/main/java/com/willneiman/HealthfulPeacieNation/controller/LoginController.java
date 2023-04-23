@@ -33,7 +33,7 @@ public class LoginController {
     }
 
     @PostMapping("/login/pro")
-    public String processLogin(@Valid @ModelAttribute("loginForm") LoginForm form,
+    public String processLogin(@Valid @ModelAttribute("loginForm") LoginForm form, Model model,
                                BindingResult result, HttpSession session, HttpServletRequest request){
         if(session.getAttribute("member") != null){
             String referer = request.getHeader("Referer");
@@ -46,7 +46,7 @@ public class LoginController {
         Member member = memberService.login(form);
         if(member == null){
             //에러 메시지
-            result.reject("login.failed", "아이디 또는 비밀번호가 잘못되었습니다.");
+            model.addAttribute("errorMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
             return "members/login";
         }
         session.setAttribute("member", member);

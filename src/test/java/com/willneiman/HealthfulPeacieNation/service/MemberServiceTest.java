@@ -29,12 +29,15 @@ public class MemberServiceTest {
     public void 회원가입() throws Exception {
         //given
         Member member = createSampleMember();
+        memberService.signup(member);
 
         //when
+        Member findMember = memberRepository.findByUsername("testId");
 
         //then
+        assertEquals(member.getId(), findMember.getId());
     }
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void 중복회원_예외() throws Exception {
         //given
         Member member1 = new Member();
@@ -44,24 +47,24 @@ public class MemberServiceTest {
 
         //when
         memberService.signup(member1);
-        memberService.signup(member2);
+        String errorMessage = memberService.signup(member2);
 
         //then
-        fail("예외가 발생해야 함");
+        assertEquals(errorMessage, "이미 가입된 아이디입니다");
     }
 
     @Test
     public void 로그인_유효성검사() throws Exception {
         //given
         Member member = createSampleMember();
-        em.persist(member);
+        memberService.signup(member);
         LoginForm loginForm = new LoginForm();
         loginForm.setUsername("testId");
         loginForm.setPassword("1234");
         //when
         Member loginMember = memberService.login(loginForm);
         //then
-        assertEquals(null, loginMember);
+        assertEquals(member.getId(), loginMember.getId());
     }
 
     private static Member createSampleMember() {

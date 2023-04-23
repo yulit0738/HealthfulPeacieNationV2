@@ -36,8 +36,7 @@ public class MemberRepository {
 
     @Transactional
     public void delete(Long id){
-        Member member = em.find(Member.class, id);
-        if(member != null){
+        if(em.find(Member.class, id) != null){
             em.remove(id);
         }
         // 삭제하려는 아이디가 없을 경우 예외로직?
