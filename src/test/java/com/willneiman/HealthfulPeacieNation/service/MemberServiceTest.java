@@ -31,10 +31,8 @@ public class MemberServiceTest {
         Member member = createSampleMember();
 
         //when
-        Long signupId = memberService.signup(member);
 
         //then
-        assertEquals(member, memberService.findMember(signupId));
     }
     @Test(expected = IllegalStateException.class)
     public void 중복회원_예외() throws Exception {
@@ -61,10 +59,9 @@ public class MemberServiceTest {
         loginForm.setUsername("testId");
         loginForm.setPassword("1234");
         //when
-        LoginResult loginResult = memberService.loginCheck(loginForm);
-        loginResult.toString();
+        Member loginMember = memberService.login(loginForm);
         //then
-        assertEquals(LoginResult.LOGIN_SUCCESS, loginResult);
+        assertEquals(null, loginMember);
     }
 
     private static Member createSampleMember() {

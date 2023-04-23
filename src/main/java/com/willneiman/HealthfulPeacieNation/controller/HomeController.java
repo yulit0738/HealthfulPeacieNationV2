@@ -11,6 +11,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model, HttpSession session){
+        // signup 성공 시 전달받은 세션. 가입 축하메시지 전용
         if(session.getAttribute("signupSuccess") != null) {
             model.addAttribute("signupSuccess", true);
             session.removeAttribute("signupSuccess");

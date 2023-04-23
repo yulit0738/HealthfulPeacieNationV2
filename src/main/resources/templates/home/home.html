@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header">
     <meta charset="UTF-8">
     <title>헬스로운 평화나라</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
+<link rel="stylesheet" th:href="@{/css/home.css}">
 <script th:inline="javascript">
     /*<![CDATA[*/
     var signupSuccess = /*[[${signupSuccess}]]*/ false;
@@ -15,7 +15,9 @@
     /*]]>*/
 </script>
 <body>
-
+<div th:if="${signupSuccess}" class="alert alert-success" role="alert">
+    회원가입을 축하합니다!
+</div>
 <div class="body-container-1">
     <div class="body-1-title">아직도 나의 루틴을 못찾았나요? 🤔</div>
     <iframe width=800 height=400

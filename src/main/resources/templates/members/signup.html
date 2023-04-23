@@ -15,6 +15,7 @@
             <div class="input-group">
                 <label class="input-label">아이디</label><br>
                 <input type="text" th:field="*{username}" placeholder="아이디를 입력해주세요" required>
+                <p th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></p>
             </div>
             <div class="input-group">
                 <label class="input-label">비밀번호</label><br>
@@ -59,15 +60,5 @@
 	}
 </script>
 
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var signupSuccess = /*[[${signupSuccess}]]*/ false;
-
-    if (signupSuccess) {
-        alert("회원가입을 축하합니다!");
-        window.location.href = "/";
-    }
-    /*]]>*/
-</script>
 
 </html>

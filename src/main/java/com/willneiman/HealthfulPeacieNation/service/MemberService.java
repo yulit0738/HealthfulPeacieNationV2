@@ -17,10 +17,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     // 회원가입
-    public Long signup(Member member){
-        validateDuplicateMember(member);
+    public String signup(Member member){
+        String errorMessage = validateDuplicateMember(member);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
         member.setPassword(hashPassword(member.getPassword()));
-        return memberRepository.save(member);
+        memberRepository.save(member);
+        return null;
     }
 
     // 아이디로 회원 조회
@@ -29,21 +33,23 @@ public class MemberService {
     }
 
     // 아이디 유효성 검사
-    public void validateDuplicateMember(Member member){
+    public String validateDuplicateMember(Member member){
         Member findMember = memberRepository.findByUsername(member.getUsername());
         if(findMember != null){
-            throw new IllegalStateException("이미 가입된 아이디입니다");
+            return "이미 가입된 아이디입니다";
         }
+        return null;
     }
 
     // 로그인
-    public LoginResult loginCheck(LoginForm form) {
+    public Member login(LoginForm form) {
         Member member = memberRepository.findByUsername(form.getUsername());
-        // 암호화된 비밀번호와 입력 비밀번호 비교 검증
+        // 입력 비밀번호와 암호화된 비밀번호를 checkPassword()를 통해 비교 검증
         if (member == null || !checkPassword(form.getPassword(), member.getPassword())) {
-            return LoginResult.LOGIN_FAILED;
-        }
-        return LoginResult.LOGIN_SUCCESS;
+            // 불일치
+            return null;
+        } // 일치, 로그인 성공. member 객체 반환
+        return member;
     }
 
     // 비밀번호 암호화

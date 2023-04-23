@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title>헬스로운 평화나라</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
-
+<header>
+    <div class="header-container">
+        <div class="header-top">
+            <div class="logo">
+                <img src="images/logo_white.png" alt="로고" class="body-logo">
+                </a>
+            </div>
+            <div class="login-menu-group">
+                <button class="btn-login">로그인</button>
+                <dialog><div th:replace="members/login :: login"></div></dialog>
+                <div>
+                    <a th:href="@{/myOrder}" class="btn-mypage">마이페이지</a>
+                    <a th:href="@{/logoutPro}" class="btn-logout">로그아웃</a>
+                </div>
+                <div class="user-information">
+                    <p>
+                        <span class="user-Id"> </span>님 환영합니다!
+                        <span> username <a th:href="@{/관리자페이지주소}" class="btn-admin">관리자모드</a><span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <nav class="nav-menu">
+                <a th:href="@{/}" class="menu-index">헬스로운 평화나라 소개</a> <a
+                    th:href="@{/shopping}" class="menu-shopping">헬창쇼핑</a>
+                <div class="submenu-container">
+                    <a th:href="@{/tickets}" class="menu-tickets">헬창PT</a>
+                    <div class="submenu">
+                        <div class="trainer-menu">
+                            <a th:href="@{/tickets}" class="menu-pt">퍼스널 트레이너</a><br>
+                        </div>
+                        <div class="reservation-menu">
+                            <a th:href="@{/reservationCalendar}" class="menu-reservation">예약하기</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+</header>
 </body>
 </html>

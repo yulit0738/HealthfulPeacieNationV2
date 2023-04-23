@@ -28,7 +28,7 @@ public class SignupController {
 
     @PostMapping("/signup/pro")
     public String processSignup(@Valid @ModelAttribute("signupForm") SignupForm form,
-                                BindingResult result, HttpSession session){
+                                BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
             return "members/signup";
         }
@@ -40,7 +40,12 @@ public class SignupController {
         member.setPhoneNumber(form.getPhoneNumber());
         member.setEmail(form.getEmail());
 
-        memberService.signup(member);
+        String errorMessage = memberService.signup(member);
+        if(errorMessage != null){
+            model.addAttribute("errorMessage", errorMessage);
+            return "members/signup";
+        }
+        // 회원가입이 성공했다는 정보를 홈화면에 전달, alert 용도
         session.setAttribute("signupSuccess", true);
         return "redirect:/";
     }
