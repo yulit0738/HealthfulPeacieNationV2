@@ -41,10 +41,11 @@ public class ProductServiceTest {
         //given
         Item item = getItem();
         productService.newProduct(item);
+        Long newItem = item.getId();
         em.flush();
         em.clear();
         //when
-        Product findProduct = productService.findProduct(1l);
+        Product findProduct = productService.findProduct(newItem);
         System.out.println("findProduct = " + findProduct);
         //then
         assertEquals(item.getId(), findProduct.getId());
