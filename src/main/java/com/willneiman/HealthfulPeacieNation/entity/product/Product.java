@@ -1,16 +1,22 @@
 package com.willneiman.HealthfulPeacieNation.entity.product;
 
-import com.willneiman.HealthfulPeacieNation.entity.product.Category;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Getter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype")
+@Getter @Setter
+@ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Product {
 
     @Id @GeneratedValue
@@ -23,10 +29,12 @@ public class Product {
     private int price;
     @Column(columnDefinition = "int default 0")
     private double rating;
+    @Column(columnDefinition = "int default 0")
     private int sales;
-    private Category category;
     private String thumbnail;
     private String image1;
     private String image2;
+    @CreatedDate
+    private LocalDateTime registrationDate;
 
 }
