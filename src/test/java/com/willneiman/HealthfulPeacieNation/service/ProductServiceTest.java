@@ -1,5 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
+import com.willneiman.HealthfulPeacieNation.entity.product.Item;
 import com.willneiman.HealthfulPeacieNation.entity.product.Product;
 import com.willneiman.HealthfulPeacieNation.repository.ProductRepository;
 import org.junit.Test;
@@ -25,21 +26,35 @@ public class ProductServiceTest {
     @Test
     public void 상품_생성() throws Exception {
         //given
-        Product product = getProduct();
+        Item item = getItem();
         //when
-        productService.newProduct(product);
-        Product findProduct = em.find(Product.class, product.getId());
+        productService.newProduct(item);
+        Product findProduct = em.find(Product.class, item.getId());
         //then
         System.out.println("findProduct = " + findProduct.toString());
-        System.out.println("product = " + product.toString());
-        assertEquals(product.getId(), findProduct.getId());
+        System.out.println("product = " + item.toString());
+        assertEquals(item.getId(), findProduct.getId());
     }
 
-    private static Product getProduct() {
-        Product product = new Product();
-        product.setName("테스트상품1");
-        product.setPrice(10000);
-        return product;
+    @Test
+    public void 상품_조회() throws Exception {
+        //given
+        Item item = getItem();
+        productService.newProduct(item);
+        em.flush();
+        em.clear();
+        //when
+        Product findProduct = productService.findProduct(1l);
+        System.out.println("findProduct = " + findProduct);
+        //then
+        assertEquals(item.getId(), findProduct.getId());
+    }
+
+    private static Item getItem() {
+        Item item = new Item();
+        item.setName("테스트상품1");
+        item.setPrice(10000);
+        return item;
     }
 
 }
