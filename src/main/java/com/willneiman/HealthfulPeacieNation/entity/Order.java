@@ -2,6 +2,7 @@ package com.willneiman.HealthfulPeacieNation.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,9 +15,8 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
-//@Setter
+@Setter
 @NoArgsConstructor
-//@ToString
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "orders")
 public class Order extends AbstractAuditable<Member, Long> {
