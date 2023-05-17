@@ -3,6 +3,7 @@ package com.willneiman.HealthfulPeacieNation.entity.product;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -21,9 +22,9 @@ public class ProductForm {
     private int remainingUses;
     @NotEmpty
     private String category;
-    private String thumbnail;
-    private String image1;
-    private String image2;
     private String description;
+    private MultipartFile thumbnail;
+    private MultipartFile image1;
+    private MultipartFile image2;
 
 }
