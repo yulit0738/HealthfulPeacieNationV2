@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="login">
+<head>
     <meta charset="UTF-8">
     <title>로그인</title>
+</head>
+<body>
+<div class="login-container" th:fragment="login">
     <style>
     .error-message {
         color : red;
     }
     </style>
     <link rel="stylesheet" th:href="@{/css/login.css}">
-</head>
-<body>
-<div class="login-container">
     <div class="page-title">로그인</div>
     <div class="login-form">
-        <form role="form" action="/login/pro" th:object="${loginForm}" method="post">
+        <form role="form" action="/login" th:object="${loginForm}" method="post">
             <!-- 에러 메시지 출력 -->
             <p th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></p>
             <div class="input-group">

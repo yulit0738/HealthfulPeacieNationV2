@@ -81,5 +81,25 @@
 <div class="trainer-nav-contianer">
     <button class="trainer-nav-btn" onclick="window.location.href='tickets.jsp'">퍼스널 트레이닝 더보기 👀</button>
 </div>
+
+<script th:inline="javascript">
+	const button = document.querySelector(".btn-login");
+	const dialog = document.querySelector('dialog#login_dialog')
+
+	button.addEventListener("click", function() {
+		dialog.showModal();
+		dialog.classList.add("open");
+	});
+
+	dialog.addEventListener("click", function(event) {
+		  if (event.target === dialog) {
+		    dialog.classList.add("closing");
+		    setTimeout(() => {
+		      dialog.close();
+		      dialog.classList.remove("closing");
+		    }, 290);
+		  }
+		});
+</script>
 </body>
 </html>

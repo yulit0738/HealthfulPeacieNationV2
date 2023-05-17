@@ -22,19 +22,22 @@ public class LoginController {
 
     private final MemberService memberService;
 
+    /*
+    로그인 페이지 불러오기
+     */
     @GetMapping("/login")
     public String login(Model model, HttpSession session, HttpServletRequest request){
+        // 이미 세션에 로그인 정보가 있을 경우 이전 페이지로 돌려보내기
         if(session.getAttribute("member") != null){
             String referer = request.getHeader("Referer");
             return "redirect:" + (referer != null ? referer : "/");
         }
-        model.addAttribute("loginForm", new LoginForm());
         return "members/login";
     }
 
-    @PostMapping("/login/pro")
-    public String processLogin(@Valid @ModelAttribute("loginForm") LoginForm form, Model model,
-                               BindingResult result, HttpSession session, HttpServletRequest request){
+    @PostMapping("/login")
+    public String processLogin(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult result,
+                               Model model, HttpSession session, HttpServletRequest request){
         if(session.getAttribute("member") != null){
             String referer = request.getHeader("Referer");
             return "redirect:" + (referer != null ? referer : "/");

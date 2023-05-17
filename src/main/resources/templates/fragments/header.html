@@ -16,7 +16,7 @@
             <div class="login-menu-group">
                 <div th:if="${session.member == null}">
                     <button class="btn-login">로그인</button>
-                    <dialog><div th:replace="members/login :: login"></div></dialog>
+                    <dialog id="login_dialog"><div th:replace="members/login :: login"></div></dialog>
                 </div>
                 <div  th:if="${session.member != null}">
                     <div>
@@ -50,32 +50,5 @@
             </nav>
         </div>
 </header>
-<script>
-	function disableScroll() {
-		document.body.style.overflow = "hidden";
-	}
-
-	function enableScroll() {
-		document.body.style.overflow = "auto";
-	}
-
-	const button = document.querySelector("button");
-	const dialog = document.querySelector("dialog");
-
-	button.addEventListener("click", function() {
-		dialog.showModal();
-		dialog.classList.add("open");
-	});
-
-	dialog.addEventListener("click", function(event) {
-		  if (event.target === dialog) {
-		    dialog.classList.add("closing");
-		    setTimeout(() => {
-		      dialog.close();
-		      dialog.classList.remove("closing");
-		    }, 290);
-		  }
-		});
-</script>
 </body>
 </html>
