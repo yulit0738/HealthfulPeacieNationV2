@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 등록</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/newproduct.css}">
+
+<!--<header>-->
+<!--    <div th:replace="adminSidebar :: sidebar"></div>-->
+<!--    <div th:replace="loadingModal :: modal"></div>-->
+<!--</header>-->
+
+<body>
+<div class="goods-modify-container">
+    <a th:href="@{/admin/products/product-list}" class="btn-back"> &lt; 뒤로가기 </a>
+    <p class="goods-modify-label">상품 관리 - 상품 등록</p>
+    <form th:action="@{/admin/products/new}" th:object="${product}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="goodsCategory" value="shopping">
+        <div class="form-group">
+            <label for="name">상품 이름:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="price">상품 가격:</label>
+            <input type="number" id="price" th:field="*{price}" required>
+        </div>
+        <div class="form-group">
+            <label for="stock">초기 재고:</label>
+            <input type="number" id="stock" th:field="*{stock}" required>
+        </div>
+        <hr class="hr-divider">
+        <div class="form-group">
+            <label for="description">제품 설명:</label>
+            <textarea id="description" th:field="*{description}" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="thumbnail">썸네일:</label>
+            <br>
+            <input type="file" id="thumbnail" th:field="*{thumbnail}" accept="image/*" required>
+        </div>
+        <div class="form-group">
+            <label for="image1">이미지 1:</label>
+            <br>
+            <input type="file" id="image1" th:field="*{image1}" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label for="image2">이미지 2:</label>
+            <br>
+            <input type="file" id="image2" th:field="*{image2}" accept="image/*">
+        </div>
+        <div class="submit-button-wrapper">
+            <button type="submit" class="submit-button">등록 완료</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
