@@ -34,6 +34,7 @@ public class Product {
     private String thumbnail;
     private String image1;
     private String image2;
+    private String description;
     @CreatedDate
     private LocalDateTime registrationDate;
 

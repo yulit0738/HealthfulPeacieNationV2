@@ -29,7 +29,7 @@ public class ProductService {
     }
 
     // 모든 상품 리스트 가져오기
-    public List<Product> finProducts(){
+    public List<Product> findAllProduct(){
         return productRepository.findAll();
     }
 
