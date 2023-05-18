@@ -4,6 +4,8 @@ import com.willneiman.HealthfulPeacieNation.entity.product.ProductForm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
@@ -24,6 +26,15 @@ public class FileService {
             String uniqueFileName = generateUniqueFileName(fileExtension);
 
             Path path = Paths.get(uploadDir, uniqueFileName);
+            // 디렉토리가 존재하는지 확인하고, 없다면 생성
+            if (!Files.exists(path.getParent())) {
+                try {
+                    Files.createDirectories(path.getParent());
+                } catch (IOException e) {
+                    throw new RuntimeException("디렉토리 생성 실패: " + path.getParent(), e);
+                }
+            }
+
             try {
                 file.transferTo(path);
                 return "productImages/" + uniqueFileName;
