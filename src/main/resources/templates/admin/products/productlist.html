@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>헬스로운 상품 관리</title>
-    <!-- Styles omitted -->
+    <title>상품 목록</title>
 </head>
+<link rel="stylesheet" th:href="@{/css/productlist.css}">
 
 <body>
 <header>
-    <!-- adminSidebar and loadingModal included here -->
+    <!-- 로딩모달, 사이드바 -->
 </header>
 
 <div class="goods-list-container">
-    <p class="goods-list-label">상품 관리 - 상품 목록</p>
+    <p class="goods-list-label">상품 관리 - 목록</p>
 
     <!-- Add options for Item and Ticket -->
     <select id="categorySelector">
@@ -24,31 +24,35 @@
     <div class="goods-table">
         <table>
             <thead>
-            <tr>
-                <th>순번</th>
-                <th>대표이미지</th>
-                <th>상품번호</th>
-                <th>제품명</th>
-                <th>가격</th>
-                <th>재고</th>
-                <th>점수</th>
-                <th>누적 판매량</th>
-            </tr>
+                <tr>
+                    <th>순번</th>
+                    <th>대표이미지</th>
+                    <th>상품번호</th>
+                    <th>제품명</th>
+                    <th>가격</th>
+                    <th>재고</th>
+                    <th>점수</th>
+                    <th>누적 판매량</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="product, stat : ${productList}">
-                <td th:text="${stat.count}"></td>
-                <td>
-                    <img th:src="${product.thumbnail}" alt="상품 이미지">
-                </td>
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.price}"></td>
-<!--                <td th:if="${product.category == 'item'}" th:text="${(product.stock != null) ? product.stock : ''}"></td>-->
-<!--                <td th:if="${product.category == 'ticket'}" th:text="${(product.remainingUses != null) ? product.remainingUses : ''}"></td>-->
-                <td></td> <!-- 점수 -->
-                <td></td> <!-- 누적 판매량 -->
-            </tr>
+                <tr th:each="product, stat : ${productList}">
+                    <td th:text="${stat.count}"></td>
+                    <td>
+                        <a th:href="@{'/admin/products/detail/' + ${product.id}}">
+                            <img th:src="@{'/' + ${product.thumbnail}}" alt="상품 이미지"
+                                 class="goods-thumbnail">
+                        </a>
+                    </td>
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td></td>
+    <!--                <td th:if="${product.category == 'item'}" th:text="${(product.stock != null) ? product.stock : ''}"></td>-->
+    <!--                <td th:if="${product.category == 'ticket'}" th:text="${(product.remainingUses != null) ? product.remainingUses : ''}"></td>-->
+                    <td th:text="${product.rating}"></td> <!-- 점수 -->
+                    <td th:text="${product.sales}"></td> <!-- 누적 판매량 -->
+                </tr>
             </tbody>
         </table>
     </div>

@@ -7,6 +7,7 @@ import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
 import com.willneiman.HealthfulPeacieNation.service.FileService;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
+import com.willneiman.HealthfulPeacieNation.service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class AdminController {
 
     private final MemberService memberService;
     private final ProductService productService;
-
+    private final RatingService ratingService;
     private final FileService fileService;
 
     /*
@@ -82,11 +85,22 @@ public class AdminController {
         return "redirect:/admin/products/product-list";
     }
 
-    @GetMapping("admin/products/product-list")
+    @GetMapping("/admin/products/product-list")
     public String productList(HttpSession session, Model model){
         List<Product> productList = productService.findAllProduct();
         model.addAttribute("productList", productList);
         return "admin/products/productlist";
+    }
+
+    @GetMapping("/admin/products/detail/{id}")
+    public String showProduct(@PathVariable Long id, Model model) {
+        Product product = productService.findProduct(id);
+        //별점 로직 구현
+        Map<String, Object> ratingData = ratingService.calculateRating(product);
+
+        model.addAttribute("product", product);
+        model.addAllAttributes(ratingData);
+        return "admin/products/productdetail";
     }
 
 }

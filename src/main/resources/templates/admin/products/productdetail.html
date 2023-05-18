@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 상세</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/productdetail.css}">
+<body>
+<header>
+    <!-- 로딩모달, 사이드바 -->
+</header>
+
+<div class="goods-detail-container">
+    <a href="javascript:history.back();" class="btn-back"> &lt; 뒤로가기 </a>
+    <p class="goods-detail-label">상품 관리 - 상세정보</p>
+    <div class="goods-top-section">
+
+        <div class="goods-top-section-first">
+            <div class="goods-thumbnail" th:style="'background-image: url(' + @{'/' + ${product.thumbnail}} + ')'"></div>
+        </div>
+
+        <div class="goods-top-section-second">
+
+            <div class="goods-name" th:text="${product.name}">
+            </div>
+
+            <div class="goods-detail-rating">
+                <span th:each="i : ${#numbers.sequence(1, fullStarCount)}" th:if="${fullStarCount > 0}">
+                    <img class="goods-detail-rating-star" src="/images/rating-full.png" alt="별점">
+                </span>
+                <img th:if="${hasHalfStar}" class="goods-detail-rating-star" src="/images/rating-half.png" alt="별점">
+                <span th:each="i : ${#numbers.sequence(1, emptyStarCount)}">
+                    <img class="goods-detail-rating-star" src="/images/rating-empty.png" alt="별점">
+                </span>
+
+                <span class="goods-detail-rating-score">
+                    <span th:text="${#numbers.formatDecimal(product.rating, 1, 1)}"></span>
+                </span>
+            </div>
+            <span class="current-stock-label">재고:</span>
+            <span th:text="${product.stock}" class="current-stock"></span>개
+        </div>
+        <div class="goods-top-section-third">
+            <div class="modify-menu-container">
+                <label class="quantity-label">재고 추가/차감</label>
+                <form id="stock-form" action="#" method="post">
+                    <input type="hidden" name="goodsId" value="${product.id}">
+                    <input type="number" class="quantity-input" min="1" name="quantity" value="1">
+                    <button type="button" class="add-to-cart-button" name="action" value="increase" onclick="submitForm('increase')">재고 추가</button>
+                    <button type="button" class="add-to-cart-button" name="action" value="decrease" onclick="submitForm('decrease')">재고 차감</button>
+                </form>
+                <a href="#" class="modify-button">상품 정보 수정</a>
+                <a href="#" class="delete-button">상품 제거</a>
+            </div>
+        </div>
+    </div>
+    <div class="goods-bottom-section">
+        <hr>
+        <div class="goods-bottom-section-label">제품 설명</div>
+        <div class="goods-description"th:text="${product.description}"></div>
+    </div>
+</div>
+</body>
+
+<script>
+function submitForm(action) {
+    document.getElementById('stock-form').action = 'adminFixStock.jsp?action=' + action;
+    document.getElementById('stock-form').submit();
+  }
+</script>
+</html>

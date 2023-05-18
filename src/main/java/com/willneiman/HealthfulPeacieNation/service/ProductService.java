@@ -1,8 +1,11 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
+import com.willneiman.HealthfulPeacieNation.entity.product.Item;
 import com.willneiman.HealthfulPeacieNation.entity.product.Product;
+import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
 import com.willneiman.HealthfulPeacieNation.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +34,16 @@ public class ProductService {
     // 모든 상품 리스트 가져오기
     public List<Product> findAllProduct(){
         return productRepository.findAll();
+    }
+
+    // Item 카테고리 페이징
+    public List<Item> findItemsByPage(Pageable pageable) {
+        return productRepository.findItemsByPage(pageable);
+    }
+
+    // Ticket 카테고리 페이징
+    public List<Ticket> findTicketsByPage(Pageable pageable) {
+        return productRepository.findTicketsByPage(pageable);
     }
 
     // 특정 상품 삭제

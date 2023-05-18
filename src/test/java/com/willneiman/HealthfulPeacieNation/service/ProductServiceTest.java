@@ -8,18 +8,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-@Rollback(false)
 public class ProductServiceTest {
 
     @Autowired ProductService productService;
@@ -60,6 +63,30 @@ public class ProductServiceTest {
         //then
         assertEquals(item.getId(), findProduct.getId());
     }
+
+    @Test
+    public void 카테고리_페이징() throws Exception {
+        //given
+        int pageSize = 10; // 원하는 페이지 크기를 설정하세요
+        Pageable pageable = PageRequest.of(0, pageSize); // 첫번째 페이지를 요청
+
+        // 상품들을 생성하고 저장
+        for (int i = 0; i < pageSize * 2; i++) {
+            Item item = getItem();
+            item.setName(item.getName() + i); // 중복되지 않는 이름을 설정
+            productService.newProduct(item);
+        }
+        //when
+        List<Item> items = productService.findItemsByPage(pageable);
+
+        //then
+        // 반환된 아이템의 크기는 페이지 크기와 같아야 한다.
+        assertEquals(pageSize, items.size());
+        for (Item item : items) {
+            System.out.println("Item: " + item.getName());
+        }
+    }
+
 
     private static Item getItem() {
         Item item = new Item();

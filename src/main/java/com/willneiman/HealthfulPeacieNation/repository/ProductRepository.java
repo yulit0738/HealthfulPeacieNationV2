@@ -1,7 +1,11 @@
 package com.willneiman.HealthfulPeacieNation.repository;
 
+import com.willneiman.HealthfulPeacieNation.entity.product.Item;
 import com.willneiman.HealthfulPeacieNation.entity.product.Product;
+import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,4 +53,19 @@ public class ProductRepository {
 
     }
 
+    // Item 카테고리 페이징
+    public List<Item> findItemsByPage(Pageable pageable) {
+        return em.createQuery("select i from Item i", Item.class)
+                .setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+    }
+
+    // Ticket 카테고리 페이징
+    public List<Ticket> findTicketsByPage(Pageable pageable) {
+        return em.createQuery("select t from Ticket t", Ticket.class)
+                .setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+    }
 }

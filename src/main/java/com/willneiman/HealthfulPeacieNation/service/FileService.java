@@ -23,7 +23,7 @@ public class FileService {
             Path path = Paths.get(uploadDir, uniqueFileName);
             try {
                 file.transferTo(path);
-                return "productImages/" + originalFilename;
+                return "productImages/" + uniqueFileName;
             } catch (IOException e) {
                 throw new RuntimeException("파일 저장 실패: " + uniqueFileName, e);
             }
