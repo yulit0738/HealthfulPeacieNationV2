@@ -1,11 +1,14 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
+import com.willneiman.HealthfulPeacieNation.entity.product.ProductForm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -46,5 +49,18 @@ public class FileService {
             uniqueFilename += "." + fileExtension;
         }
         return uniqueFilename;
+    }
+
+    public Map<String, String> processProductFiles(ProductForm form) {
+        String thumbnailPath = storeFile(form.getThumbnail());
+        String imagePath1 = storeFile(form.getImage1());
+        String imagePath2 = storeFile(form.getImage2());
+
+        Map<String, String> fileMap = new HashMap<>();
+        fileMap.put("thumbnail", thumbnailPath);
+        fileMap.put("image1", imagePath1);
+        fileMap.put("image2", imagePath2);
+
+        return fileMap;
     }
 }

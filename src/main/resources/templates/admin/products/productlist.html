@@ -56,6 +56,11 @@
             </tbody>
         </table>
     </div>
+    <div class="pagination">
+        <a th:href="@{/admin/products/product-list(page=${currentPage-1}, category=${category})}" th:unless="${currentPage == 0}">Previous</a>
+        <span th:text="${currentPage + 1}">1</span>
+        <a th:href="@{/admin/products/product-list(page=${currentPage+1}, category=${category})}">Next</a>
+    </div>
 </div>
 
 <!-- If not admin -->

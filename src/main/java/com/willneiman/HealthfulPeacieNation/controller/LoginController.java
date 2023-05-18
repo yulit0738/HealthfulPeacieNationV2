@@ -47,12 +47,16 @@ public class LoginController {
         //로그인 처리
         Member member = memberService.login(form);
         if(member == null){
-            //에러 메시지
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
             return "members/login";
         }
         session.setAttribute("member", member);
-        System.out.println("login session = " + session);
+
+        // 로그인 성공 후 이전 페이지로 리다이렉트
+        String referer = request.getHeader("Referer");
+        if (referer != null && !referer.contains("/login")) {
+            return "redirect:" + referer;
+        }
         return "redirect:/";
     }
 

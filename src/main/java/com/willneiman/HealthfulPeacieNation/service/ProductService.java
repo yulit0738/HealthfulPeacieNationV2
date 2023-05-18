@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,6 +45,17 @@ public class ProductService {
     // Ticket 카테고리 페이징
     public List<Ticket> findTicketsByPage(Pageable pageable) {
         return productRepository.findTicketsByPage(pageable);
+    }
+
+    // 동적 카테고리 페이징
+    public List<Product> findProductsByPageAndCategory(Pageable pageable, String category) {
+        if (category.equals("item")) {
+            return new ArrayList<Product>(productRepository.findItemsByPage(pageable));
+        } else if (category.equals("ticket")) {
+            return new ArrayList<Product>(productRepository.findTicketsByPage(pageable));
+        } else {
+            return new ArrayList<Product>(productRepository.findItemsByPage(pageable));
+        }
     }
 
     // 특정 상품 삭제

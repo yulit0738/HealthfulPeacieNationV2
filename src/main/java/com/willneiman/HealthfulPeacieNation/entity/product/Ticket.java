@@ -14,6 +14,5 @@ import javax.persistence.Entity;
 @Setter
 public class Ticket extends Product{
 
-    @Column(columnDefinition = "int default 10")
     private int remainingUses;
 }

@@ -13,6 +13,5 @@ import javax.persistence.Entity;
 @Getter @Setter
 public class Item extends Product{
 
-    @Column(columnDefinition = "int default 0")
     private int stock;
 }
