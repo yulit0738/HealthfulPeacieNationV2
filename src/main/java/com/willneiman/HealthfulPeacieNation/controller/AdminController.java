@@ -8,6 +8,7 @@ import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import com.willneiman.HealthfulPeacieNation.service.RatingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -89,7 +90,7 @@ public class AdminController {
     @GetMapping("/admin/products/product-list")
     @AdminOnly
     public String productList(HttpSession session, Model model,
-                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "1") int page,
                               @RequestParam(defaultValue = "item") String category) {
         Pageable pageable = PageRequest.of(page, 20);
         List<Product> productList = productService.findProductsByPageAndCategory(pageable, category);
@@ -98,11 +99,24 @@ public class AdminController {
                 .map(product -> new ProductListForm(product, category))
                 .collect(Collectors.toList());
 
+        int totalPages = productService.findTotalPageByCategory(category, pageable);
+        int startPage = Math.max(page - 5, 1);
+        int endPage = Math.min(startPage + 9, totalPages);
+
         model.addAttribute("productList", productListForms);
         model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentCategory", category);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);;
+        System.out.println("page = " + page);
+        System.out.println("totalPages = " + totalPages);
+        System.out.println("category = " + category);
+        System.out.println("startPage = " + startPage);
+        System.out.println("endPage = " + endPage);
         return "admin/products/productlist";
     }
+
 
     @GetMapping("/admin/products/detail/{id}")
     @AdminOnly

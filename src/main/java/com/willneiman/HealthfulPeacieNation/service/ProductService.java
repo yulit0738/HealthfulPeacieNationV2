@@ -5,6 +5,7 @@ import com.willneiman.HealthfulPeacieNation.entity.product.Product;
 import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
 import com.willneiman.HealthfulPeacieNation.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +59,16 @@ public class ProductService {
         }
     }
 
+    // 상품별 최대 페이지 구하기
+    public int findTotalPageByCategory(String category, Pageable pageable){
+        return productRepository.findTotalPages(category, pageable);
+    }
+
     // 특정 상품 삭제
     public void deleteProduct(Long id){
         productRepository.delete(id);
     }
+
+
+
 }

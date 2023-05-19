@@ -82,3 +82,44 @@ td:nth-of-type(4) {
 	background-color: #005999;
 	text-decoration: none;
 }
+
+.container-pagination{
+	margin: 15px auto;
+	width: 1000px;
+	display: flex;
+	justify-content: space-between; /* 추가 */
+}
+.pagination {
+	display: flex;
+	justify-content: flex-start; /* 변경 */
+}
+
+.pagination a {
+	color: #0077CC;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+	background-color: #fff;
+}
+
+.pagination .active {
+	background-color: #0077CC;
+	color: white;
+	padding: 8px 16px;
+	border: 1px solid #0077CC;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: orange;
+	color: #fff;
+}
+
+.pagination .disabled {
+	color: darkgray;
+	pointer-events: none;
+	cursor: default;
+	border: 1px solid #ddd;
+	padding: 8px 16px;
+}

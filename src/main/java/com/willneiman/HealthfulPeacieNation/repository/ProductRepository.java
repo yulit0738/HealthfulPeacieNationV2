@@ -18,7 +18,6 @@ import java.util.List;
 public class ProductRepository {
 
     private final EntityManager em;
-    private final ProductJpaRepository productJpaRepository;
 
     @Transactional
     public Long save(Product product) {
@@ -67,5 +66,21 @@ public class ProductRepository {
                 .setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
+    }
+
+    // 총 페이지 수 카운트
+    // total page count
+    public int findTotalPages(String category, Pageable pageable) {
+        Long totalProducts;
+
+        if ("item".equals(category)) {
+            totalProducts = em.createQuery("select count(i) from Item i", Long.class).getSingleResult();
+        } else if ("ticket".equals(category)) {
+            totalProducts = em.createQuery("select count(t) from Ticket t", Long.class).getSingleResult();
+        } else {
+            throw new IllegalArgumentException("Invalid category: " + category);
+        }
+
+        return (int) Math.ceil((double) totalProducts / pageable.getPageSize());
     }
 }
