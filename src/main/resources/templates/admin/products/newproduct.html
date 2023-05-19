@@ -20,8 +20,8 @@
         <div class="form-group">
             <label for="productType">상품 유형:</label>
             <select id="productType" th:field="*{category}" onchange="changeProductType()">
-                <option value="item" selected>Item</option>
-                <option value="ticket">Ticket</option>
+                <option value="item" selected>헬창용품</option>
+                <option value="ticket">PT서비스</option>
             </select>
             <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error-message">Incorrect</p>
         </div>

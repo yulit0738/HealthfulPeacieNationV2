@@ -37,18 +37,29 @@
                     <span th:text="${#numbers.formatDecimal(product.rating, 1, 1)}"></span>
                 </span>
             </div>
-            <span class="current-stock-label">재고:</span>
-            <span th:text="${product.stock}" class="current-stock"></span>개
+            <span class="current-stock-label" th:text="${currentCategory == 'item' ? '재고:' : '기본 이용 횟수:'}"></span>
+            <span th:text="${product.inventory}" class="current-stock"></span>
+            <span th:text="${currentCategory == 'item' ? '개' : '회'}"></span>
         </div>
         <div class="goods-top-section-third">
             <div class="modify-menu-container">
-                <label class="quantity-label">재고 추가/차감</label>
-                <form id="stock-form" action="#" method="post">
-                    <input type="hidden" name="goodsId" value="${product.id}">
-                    <input type="number" class="quantity-input" min="1" name="quantity" value="1">
-                    <button type="button" class="add-to-cart-button" name="action" value="increase" onclick="submitForm('increase')">재고 추가</button>
-                    <button type="button" class="add-to-cart-button" name="action" value="decrease" onclick="submitForm('decrease')">재고 차감</button>
-                </form>
+                <div th:if="${currentCategory == 'item'}">
+                    <label class="quantity-label">재고 추가/차감</label>
+                    <form id="stock-form" action="#" method="post">
+                        <input type="hidden" name="goodsId" value="${product.id}">
+                        <input type="number" class="quantity-input" min="1" name="quantity" value="1">
+                        <button type="button" class="add-to-cart-button" name="action" value="increase" onclick="submitForm('increase')">재고 추가</button>
+                        <button type="button" class="add-to-cart-button" name="action" value="decrease" onclick="submitForm('decrease')">재고 차감</button>
+                    </form>
+                </div>
+                <div th:if="${currentCategory == 'ticket'}">
+                    <label class="quantity-label">기본 이용 횟수 변경</label>
+                    <form id="stock-form" action="#" method="post">
+                        <input type="hidden" name="goodsId" value="${product.id}">
+                        <input type="number" class="quantity-input" min="1" name="quantity" value="1">
+                        <button type="button" class="add-to-cart-button" name="action" value="increase" onclick="submitForm('increase')">횟수 변경</button>
+                    </form>
+                </div>
                 <a href="#" class="modify-button">상품 정보 수정</a>
                 <a href="#" class="delete-button">상품 제거</a>
             </div>
@@ -57,7 +68,7 @@
     <div class="goods-bottom-section">
         <hr>
         <div class="goods-bottom-section-label">제품 설명</div>
-        <div class="goods-description"th:text="${product.description}"></div>
+        <div class="goods-description"><pre th:text="${product.description}"></pre></div>
     </div>
 </div>
 </body>

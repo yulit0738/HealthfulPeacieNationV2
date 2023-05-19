@@ -16,8 +16,8 @@
 
     <!-- Add options for Item and Ticket -->
     <select id="categorySelector">
-        <option value="item">Item</option>
-        <option value="ticket">Ticket</option>
+        <option value="item" th:selected="${currentCategory == 'item'}">헬창용품</option>
+        <option value="ticket" th:selected="${currentCategory == 'ticket'}">PT서비스</option>
     </select>
 
     <a href="/admin/products/new" class="add-goods-button">상품 등록</a>
@@ -39,7 +39,7 @@
                 <tr th:each="product, stat : ${productList}">
                     <td th:text="${stat.count}"></td>
                     <td>
-                        <a th:href="@{'/admin/products/detail/' + ${product.id}}">
+                        <a th:href="@{'/admin/products/detail/' + ${product.id} + '?category=' + ${currentCategory}}">
                             <img th:src="@{'/' + ${product.thumbnail}}" alt="상품 이미지"
                                  class="goods-thumbnail">
                         </a>
@@ -70,5 +70,17 @@
 <!--			history.back();-->
 <!--		</script>-->
 <!--</div>-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categorySelector = document.querySelector('#categorySelector');
+
+        categorySelector.addEventListener('change', function() {
+            const selectedCategory = this.value;
+            const currentPage = 0; // initial page
+            window.location.href = `/admin/products/product-list?page=${currentPage}&category=${selectedCategory}`;
+        });
+    });
+</script>
+
 </body>
 </html>

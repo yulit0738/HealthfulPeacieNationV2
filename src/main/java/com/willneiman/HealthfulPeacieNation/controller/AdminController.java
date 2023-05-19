@@ -2,10 +2,7 @@ package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.AdminOnly;
 import com.willneiman.HealthfulPeacieNation.entity.Member;
-import com.willneiman.HealthfulPeacieNation.entity.product.Item;
-import com.willneiman.HealthfulPeacieNation.entity.product.Product;
-import com.willneiman.HealthfulPeacieNation.entity.product.ProductForm;
-import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
+import com.willneiman.HealthfulPeacieNation.entity.product.*;
 import com.willneiman.HealthfulPeacieNation.service.FileService;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
@@ -24,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -95,19 +93,28 @@ public class AdminController {
                               @RequestParam(defaultValue = "item") String category) {
         Pageable pageable = PageRequest.of(page, 20);
         List<Product> productList = productService.findProductsByPageAndCategory(pageable, category);
-        model.addAttribute("productList", productList);
-        model.addAttribute("currentPage", page); // current page number
+
+        List<ProductListForm> productListForms = productList.stream()
+                .map(product -> new ProductListForm(product, category))
+                .collect(Collectors.toList());
+
+        model.addAttribute("productList", productListForms);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("currentCategory", category);
         return "admin/products/productlist";
     }
 
     @GetMapping("/admin/products/detail/{id}")
     @AdminOnly
-    public String showProduct(@PathVariable Long id, Model model) {
+    public String showProduct(@PathVariable Long id, Model model,
+                              @RequestParam String category) {
         Product product = productService.findProduct(id);
         //별점 로직 구현
         Map<String, Object> ratingData = ratingService.calculateRating(product);
+        ProductDetailForm productDetailForm = new ProductDetailForm(product, category);
 
-        model.addAttribute("product", product);
+        model.addAttribute("product", productDetailForm);
+        model.addAttribute("currentCategory", category);
         model.addAllAttributes(ratingData);
         return "admin/products/productdetail";
     }

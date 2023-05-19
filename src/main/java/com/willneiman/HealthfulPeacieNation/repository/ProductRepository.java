@@ -4,7 +4,6 @@ import com.willneiman.HealthfulPeacieNation.entity.product.Item;
 import com.willneiman.HealthfulPeacieNation.entity.product.Product;
 import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +18,7 @@ import java.util.List;
 public class ProductRepository {
 
     private final EntityManager em;
+    private final ProductJpaRepository productJpaRepository;
 
     @Transactional
     public Long save(Product product) {
