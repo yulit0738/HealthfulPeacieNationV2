@@ -61,23 +61,25 @@
         <th:block th:if="${currentPage > 1}">
             <a th:href="@{/admin/products/product-list(page=${currentPage - 1}, category=${category})}">&laquo;</a>
         </th:block>
-        <th:block th:unless="${currentPage <= 1} or ${totalPages <= 1}">
+        <th:block th:if="${currentPage <= 1}">
             <span class="disabled">&laquo;</span>
         </th:block>
-        <!-- 페이지 번호 버튼 각 페이지에 대해 현재 페이지와 같으면 하이라이트, 아니면 비활성화 -->
-        <th:block th:each="i : ${#numbers.sequence(startPage, endPage)}" th:if="${endPage > 0}">
+
+        <!-- 페이지 번호 버튼 각 페이지에 대해 현재 페이지와 같으면 하이라이트, 아니면 링크버튼 -->
+        <th:block th:each="i : ${#numbers.sequence(startPage, endPage)}">
             <th:block th:if="${currentPage == i}">
                 <span class="active" th:text="${i}"></span>
             </th:block>
-            <th:block th:unless="${currentPage != i}" or th:if="${currentPage > 1}">
+            <th:block th:unless="${currentPage == i}">
                 <a th:href="@{/admin/products/product-list(page=${i}, category=${category})}" th:text="${i}"></a>
             </th:block>
         </th:block>
+
         <!-- 다음 페이지 버튼 : 현재 페이지가 총 페이지 수보다 적으면 활성화, 아니면 비활성화 -->
         <th:block th:if="${currentPage < totalPages}">
             <a th:href="@{/admin/products/product-list(page=${currentPage + 1}, category=${category})}">&raquo;</a>
         </th:block>
-        <th:block th:unless="${currentPage >= totalPages}">
+        <th:block th:if="${currentPage >= totalPages}">
             <span class="disabled">&raquo;</span>
         </th:block>
     </div>
@@ -96,7 +98,7 @@
 
         categorySelector.addEventListener('change', function() {
             const selectedCategory = this.value;
-            const currentPage = 0; // initial page
+            const currentPage = 1; // initial page
             window.location.href = `/admin/products/product-list?page=${currentPage}&category=${selectedCategory}`;
         });
     });

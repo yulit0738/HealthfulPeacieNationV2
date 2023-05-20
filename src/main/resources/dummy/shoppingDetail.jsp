@@ -839,6 +839,13 @@ body {
 		alert('상품 링크가 복사되었습니다! "Ctrl+V" 로 붙여넣기 하세요!');
 	}
 
+	function copyToClipboard() {
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => {
+                alert('상품 링크가 복사되었습니다! "Ctrl+V" 로 붙여넣기 하세요!');
+            })
+    }
+
 	// 페이지가 로드되었을 때 이전 스크롤 위치로 이동
 	window.addEventListener('load', function() {
 		var scrollPosition = sessionStorage.getItem('scrollPosition');

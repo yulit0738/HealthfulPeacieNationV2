@@ -259,6 +259,7 @@ if(search == null || search == ""){
 			<a href="?page=<%=i%>"><%=i%></a>
 			<%}%>
 			<%}%>
+
 			<%if (currentPage < totalPages) {%>
 			<a href="?page=<%=currentPage + 1%>">&raquo;</a>
 			<%} else {%>

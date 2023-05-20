@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+  <meta charset="UTF-8">
+  <title>헬스로운 평화나라</title>
+</head>
+
+<link rel="stylesheet" th:href="@{/shop.css}">
+<body>
+<header th:replace="header :: header"></header>
+
+<div class="body-container">
+  <p class="body-label">메인 > 헬창쇼핑</p>
+  <div class="goods-label-container">
+    <div class="goods-label-header">체고급 헬창용품 🛒</div>
+    <div class="goods-label-body">
+      득근을 위해, 그리고 근손실을 방지하기 위해서도 좋은 장비를 갖추는 것도 필수입니다.<br> 헬스로운 평화나라에는
+      소비자의 근손실 방지를 최대의 가치로 삼습니다. (사실 그냥 사란 뜻)
+    </div>
+  </div>
+  <div class="goods-container" th:each="goods : ${goodsList}">
+    <div class="goods-item">
+      <a th:href="@{/shoppingDetail(goodsId=${goods.id})}" class="goods-item-info">
+        <div class="goods-thumbnail" th:style="'background-image: url(' + @{/goodsImages/${goods.thumbnail}} + ')'"></div>
+        <div class="goods-name" th:text="${goods.name}"></div>
+      </a>
+      <div class="goods-price" th:text="${#numbers.formatDecimal(goods.price, 1, 'COMMA')} + '원'"></div>
+      <div class="soldout" th:if="${goods.stock < 1}">일시품절</div>
+    </div>
+  </div>
+</div>
+
+<footer th:replace="footer :: footer"></footer>
+</body>
+</html>

@@ -37,6 +37,7 @@ public class AdminController {
     상품 등록 페이지 뷰
      */
 
+    //
     @GetMapping("/admin/products/new")
     @AdminOnly
     public String newProductView(Model model) {
@@ -89,10 +90,10 @@ public class AdminController {
 
     @GetMapping("/admin/products/product-list")
     @AdminOnly
-    public String productList(HttpSession session, Model model,
+    public String adminProductList(HttpSession session, Model model,
                               @RequestParam(defaultValue = "1") int page,
                               @RequestParam(defaultValue = "item") String category) {
-        Pageable pageable = PageRequest.of(page, 20);
+        Pageable pageable = PageRequest.of(page-1, 20);
         List<Product> productList = productService.findProductsByPageAndCategory(pageable, category);
 
         List<ProductListForm> productListForms = productList.stream()
@@ -120,7 +121,7 @@ public class AdminController {
 
     @GetMapping("/admin/products/detail/{id}")
     @AdminOnly
-    public String showProduct(@PathVariable Long id, Model model,
+    public String adminProductDetail(@PathVariable Long id, Model model,
                               @RequestParam String category) {
         Product product = productService.findProduct(id);
         //별점 로직 구현
