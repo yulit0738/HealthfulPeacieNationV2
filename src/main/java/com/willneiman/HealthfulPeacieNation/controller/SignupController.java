@@ -26,12 +26,13 @@ public class SignupController {
         return "/members/signup";
     }
 
-    @PostMapping("/signup/pro")
+    @PostMapping("/signup")
     public String processSignup(@Valid @ModelAttribute("signupForm") SignupForm form,
                                 BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
             return "members/signup";
         }
+
         // 회원가입 처리
         Member member = new Member();
         member.setUsername(form.getUsername());

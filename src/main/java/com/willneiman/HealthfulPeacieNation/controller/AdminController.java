@@ -93,7 +93,7 @@ public class AdminController {
     public String adminProductList(HttpSession session, Model model,
                               @RequestParam(defaultValue = "1") int page,
                               @RequestParam(defaultValue = "item") String category) {
-        Pageable pageable = PageRequest.of(page-1, 20);
+        Pageable pageable = PageRequest.of(page-1, 10);
         List<Product> productList = productService.findProductsByPageAndCategory(pageable, category);
 
         List<ProductListForm> productListForms = productList.stream()
@@ -110,11 +110,6 @@ public class AdminController {
         model.addAttribute("currentCategory", category);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);;
-        System.out.println("page = " + page);
-        System.out.println("totalPages = " + totalPages);
-        System.out.println("category = " + category);
-        System.out.println("startPage = " + startPage);
-        System.out.println("endPage = " + endPage);
         return "admin/products/productlist";
     }
 

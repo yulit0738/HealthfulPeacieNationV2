@@ -10,7 +10,7 @@
 <div class="signup-container">
     <div class="page-title">회원가입</div>
     <div class="signup-form">
-        <form role="form" action="/signup/pro" th:object="${signupForm}" method="post"
+        <form role="form" action="/signup" th:object="${signupForm}" method="post"
               onsubmit="return validateForm();">
             <div class="input-group">
                 <label class="input-label">아이디</label><br>
@@ -24,6 +24,7 @@
             <div class="input-group">
                 <label class="input-label">비밀번호 확인</label><br>
                 <input type="password" id="userPwCheck" name="userPwCheck" placeholder="비밀번호를 다시 입력해주세요" required>
+                <p id="passwordError" class="error-message" style="display: none;">비밀번호가 일치하지 않습니다.</p>
             </div>
             <div class="input-group">
                 <label class="input-label">이름</label><br>
@@ -45,20 +46,19 @@
 </body>
 
 <script th:inline="javascript">
-	function validateForm() {
-		// 비밀번호 필드와 비밀번호 확인 필드의 값을 가져옴
-		var userPw = document.getElementById("userPw").value;
-		var userPwCheck = document.getElementById("userPwCheck").value;
+    function validateForm() {
+        var userPw = document.getElementById("userPw").value;
+        var userPwCheck = document.getElementById("userPwCheck").value;
+        var passwordError = document.getElementById("passwordError");
 
-		// 비밀번호와 비밀번호 확인 필드의 값이 다를 경우 경고 메시지 표시
-		if (userPw !== userPwCheck) {
-			alert("비밀번호를 다시 확인해주세요");
-			return false;
-		}
-
-		return true;
-	}
+        if (userPw !== userPwCheck) {
+            passwordError.style.display = "block";
+            return false;
+        } else {
+            passwordError.style.display = "none";
+            return true;
+        }
+    }
 </script>
-
 
 </html>

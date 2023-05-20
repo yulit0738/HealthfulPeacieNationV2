@@ -40,7 +40,7 @@
                     <td th:text="${stat.count}"></td>
                     <td>
                         <a th:href="@{'/admin/products/detail/' + ${product.id} + '?category=' + ${currentCategory}}">
-                            <img th:src="@{'/' + ${product.thumbnail}}" alt="상품 이미지"
+                            <img th:src="'/' + ${product.thumbnail}" alt="상품 이미지"
                                  class="goods-thumbnail">
                         </a>
                     </td>
@@ -70,7 +70,7 @@
             <th:block th:if="${currentPage == i}">
                 <span class="active" th:text="${i}"></span>
             </th:block>
-            <th:block th:unless="${currentPage == i}">
+            <th:block th:unless="${currentPage == i} or ${totalPages == 0}">
                 <a th:href="@{/admin/products/product-list(page=${i}, category=${category})}" th:text="${i}"></a>
             </th:block>
         </th:block>

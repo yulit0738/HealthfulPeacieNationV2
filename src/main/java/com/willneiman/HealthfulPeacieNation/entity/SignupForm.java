@@ -18,4 +18,5 @@ public class SignupForm {
     private String phoneNumber;
     @NotEmpty(message = "메일주소를 입력해주세요.")
     private String email;
+
 }

@@ -43,7 +43,7 @@ public class FileService {
             }
         }
         // 기본 플레이스 홀더 이미지 반환
-        return "productImages/No-Image-Placeholder.png";
+        return "images/No-Image-Placeholder.png";
     }
 
     private String getFileExtension(String filename) {
