@@ -1,0 +1,39 @@
+.mypage-sidebar {
+	padding: 15px;
+	max-width: 150px;
+	background-color: rgb(0, 0, 0, 0.03);
+	height: 100%;
+}
+.mypage-title {
+	text-align: center;
+	font-weight: bold;
+}
+
+.sidebar-hr {
+	border-top: 1px solid #ddd;
+}
+
+li {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	list-style-type: none;
+	font-size: 14px;
+}
+
+.first-li {
+	margin-top: 40px;
+}
+
+li:hover a {
+  color: #5F32FF;
+}
+
+a {
+	color: rgb(0, 0, 0, 0.7);
+	text-decoration: none;
+}
+
+ul {
+  padding-left: 5px;
+  margin-top: 0;
+}

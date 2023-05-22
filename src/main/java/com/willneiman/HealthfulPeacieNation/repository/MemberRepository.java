@@ -24,7 +24,8 @@ public class MemberRepository {
         em.persist(member);
         return member.getId();
     }
-    
+
+    // 고유 키로 조회
     public Member findOne(Long id){
         return em.find(Member.class, id);
     }

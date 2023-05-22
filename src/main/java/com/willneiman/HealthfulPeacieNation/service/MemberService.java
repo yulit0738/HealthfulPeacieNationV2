@@ -41,6 +41,15 @@ public class MemberService {
         return null;
     }
 
+    // 비밀번호 확인
+    public String passwordCheck(String username, String password){
+        Member member = memberRepository.findByUsername(username);
+        if(!member.getPassword().equals(password)){
+            return "비밀번호가 일치하지 않습니다.";
+        }
+        return null;
+    }
+
     // 로그인
     public Member login(LoginForm form) {
         Member member = memberRepository.findByUsername(form.getUsername());

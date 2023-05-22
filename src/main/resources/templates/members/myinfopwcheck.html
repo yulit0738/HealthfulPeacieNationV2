@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>헬스로운 평화나라</title>
+</head>
+
+<script th:src="@{/js/loginmodal.js}"></script>
+<link rel="stylesheet" th:href="@{/css/myinfopwcheck.css}">
+<link rel="stylesheet" th:href="@{/css/mypagesidebar.css}">
+
+<body>
+<div class="body-container">
+    <div th:include="fragments/mypagesidebar :: mypagesidebar" class="side-bar"/>
+    <div class="body-content">
+        <p class="content-head">회원정보 수정</p>
+        <hr>
+        <div class="information-container">
+            <form role="form" action="/my/info" th:object="${passwordCheckForm}" method="post">
+                <div class="input-group">
+                    <table>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td>
+                            <input type="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요"
+                                   th:class="${#fields.hasErrors('password')}?'fieldError':''" required>
+                            </td>
+                            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message">Incorrect</p>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modify-btn">
+                    <button type="submit" class="modify-btn">확인</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+</html>
