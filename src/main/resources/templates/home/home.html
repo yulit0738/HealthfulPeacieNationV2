@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <title>헬스로운 평화나라</title>
 </head>
-<link rel="stylesheet" th:href="@{/css/home.css}">
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var signupSuccess = /*[[${signupSuccess}]]*/ false;
 
-    if (signupSuccess) {
-        alert("회원가입을 축하합니다!");
-    }
-    /*]]>*/
-</script>
+<script th:src="@{/js/loginmodal.js}"></script>
+<link rel="stylesheet" th:href="@{/css/home.css}">
+
 <body>
 <div class="body-container-1">
     <div class="body-1-title">아직도 나의 루틴을 못찾았나요? 🤔</div>
@@ -83,23 +77,15 @@
 </div>
 
 <script th:inline="javascript">
-	const button = document.querySelector(".btn-login");
-	const dialog = document.querySelector('dialog#login_dialog')
+    /*<![CDATA[*/
+    var signupSuccess = /*[[${signupSuccess}]]*/ false;
 
-	button.addEventListener("click", function() {
-		dialog.showModal();
-		dialog.classList.add("open");
-	});
-
-	dialog.addEventListener("click", function(event) {
-		  if (event.target === dialog) {
-		    dialog.classList.add("closing");
-		    setTimeout(() => {
-		      dialog.close();
-		      dialog.classList.remove("closing");
-		    }, 290);
-		  }
-		});
+    if (signupSuccess) {
+        alert("회원가입을 축하합니다!");
+    }
+    /*]]>*/
 </script>
+
 </body>
+<footer th:replace="fragments/footer :: footer"></footer>
 </html>

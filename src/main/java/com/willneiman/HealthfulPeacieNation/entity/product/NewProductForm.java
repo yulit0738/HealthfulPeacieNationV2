@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @ToString
-public class ProductForm {
+public class NewProductForm {
     @NotEmpty(message = "상품 이름을 입력해주세요.")
     private String name;
     @Min(value = 0, message = "가격은 0원 이상이어야 합니다.")

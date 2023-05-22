@@ -47,9 +47,7 @@
                     <td th:text="${product.id}"></td>
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price}"></td>
-                    <td></td>
-    <!--                <td th:if="${product.category == 'item'}" th:text="${(product.stock != null) ? product.stock : ''}"></td>-->
-    <!--                <td th:if="${product.category == 'ticket'}" th:text="${(product.remainingUses != null) ? product.remainingUses : ''}"></td>-->
+                    <td th:text="${product.inventory}"></td>
                     <td th:text="${product.rating}"></td> <!-- 점수 -->
                     <td th:text="${product.sales}"></td> <!-- 누적 판매량 -->
                 </tr>

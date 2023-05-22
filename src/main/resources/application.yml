@@ -7,11 +7,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # or update
+      ddl-auto: update # or create
     properties:
       hibernate:
         #        show_sql: true 운영 환경에서는 system.out.으로 찍으면 안됨
         format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

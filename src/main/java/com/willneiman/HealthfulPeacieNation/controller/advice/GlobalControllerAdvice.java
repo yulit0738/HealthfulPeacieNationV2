@@ -3,6 +3,8 @@ package com.willneiman.HealthfulPeacieNation.controller.advice;
 import com.willneiman.HealthfulPeacieNation.entity.LoginForm;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,5 +17,10 @@ public class GlobalControllerAdvice {
             return new LoginForm();
         }
         return null;
+    }
+
+    @ModelAttribute("numberFormat")
+    public NumberFormat getNumberFormat() {
+        return new DecimalFormat("#,###");
     }
 }

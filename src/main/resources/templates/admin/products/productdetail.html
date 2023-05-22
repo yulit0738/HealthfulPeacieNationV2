@@ -61,7 +61,7 @@
                     </form>
                 </div>
                 <a href="#" class="modify-button">상품 정보 수정</a>
-                <a href="#" class="delete-button">상품 제거</a>
+                <button type="button" class="delete-button" th:onclick="'deleteProduct(' + ${product.id} + ');'">상품 제거</button>
             </div>
         </div>
     </div>
@@ -78,5 +78,25 @@ function submitForm(action) {
     document.getElementById('stock-form').action = 'adminFixStock.jsp?action=' + action;
     document.getElementById('stock-form').submit();
   }
+
+function deleteProduct(productId) {
+    var result = confirm("삭제된 데이터는 복원할 수 없습니다. 정말 삭제하시겠습니까?");
+    if (result) {
+        fetch('/admin/products/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: productId})
+        }).then(response => {
+            if (response.ok) {
+                alert('상품이 삭제되었습니다.');
+                location.href = '/admin/products/product-list';
+            } else {
+                alert('상품 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.');
+            }
+        });
+    }
+}
 </script>
 </html>

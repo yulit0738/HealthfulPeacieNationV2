@@ -46,10 +46,10 @@ public class ProductRepository {
 
     @Transactional
     public void delete(Long id) {
-        if (em.find(Product.class, id) != null) {
-            em.remove(id);
+        Product product = em.find(Product.class, id);
+        if (product != null) {
+            em.remove(product);
         }
-
     }
 
     // Item 카테고리 페이징

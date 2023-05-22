@@ -1,14 +1,12 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.AdminOnly;
-import com.willneiman.HealthfulPeacieNation.entity.Member;
 import com.willneiman.HealthfulPeacieNation.entity.product.*;
 import com.willneiman.HealthfulPeacieNation.service.FileService;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import com.willneiman.HealthfulPeacieNation.service.RatingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminProductController {
 
     private final MemberService memberService;
     private final ProductService productService;
@@ -41,8 +39,8 @@ public class AdminController {
     @GetMapping("/admin/products/new")
     @AdminOnly
     public String newProductView(Model model) {
-        ProductForm productForm = new ProductForm();
-        model.addAttribute("productForm", productForm);
+        NewProductForm newProductForm = new NewProductForm();
+        model.addAttribute("productForm", newProductForm);
         return "admin/products/newproduct";
     }
 
@@ -51,7 +49,7 @@ public class AdminController {
      */
     @PostMapping("/admin/products/new")
     @AdminOnly
-    public String saveNewProduct(@Valid @ModelAttribute("productForm") ProductForm form,
+    public String saveNewProduct(@Valid @ModelAttribute("productForm") NewProductForm form,
                                  BindingResult result, Model model, HttpSession session, HttpServletRequest request) {
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
@@ -127,6 +125,16 @@ public class AdminController {
         model.addAttribute("currentCategory", category);
         model.addAllAttributes(ratingData);
         return "admin/products/productdetail";
+    }
+
+    @PostMapping("/admin/products/delete")
+    @AdminOnly
+    public String adminProductDelete(@RequestBody Map<String, Long> body){
+        Long id = body.get("id");
+        System.out.println("id = " + id);
+        productService.deleteProduct(id);
+        System.out.println("삭제처리");
+        return "redirect:/admin/products/product-list";
     }
 
 }

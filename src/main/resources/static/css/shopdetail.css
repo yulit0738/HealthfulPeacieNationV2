@@ -1,0 +1,458 @@
+body {
+	background-color: #17171f;
+	color: white;
+}
+
+.body-label {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.body-container {
+	max-width: 1000px;
+	margin: 0 auto;
+	align-items: center;
+}
+
+.goods-top-section {
+	margin-top: 40px;
+	display: flex;
+	margin-bottom: 40px;
+}
+
+.goods-top-section-first {
+	width: 300px;
+}
+
+.goods-thumbnail {
+	width: 100%;
+	padding-bottom: 100%;
+	background-size: cover;
+	background-position: center;
+}
+
+.goods-top-section-second {
+	width: 300px;
+	padding: 10px 30px;
+}
+
+.goods-name {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.goods-detail-rating {
+	margin-top: 20px;
+}
+
+.goods-detail-rating-star {
+	width: 24px;
+}
+
+.goods-top-section-third {
+	width: 300px;
+}
+
+.order-menu-container {
+	background-color: rgb(255, 255, 255, 0.2);
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	padding: 20px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.quantity-label-soldout {
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: orange;
+}
+
+.quantity-label {
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: rgb(255, 255, 255, 0.6);
+}
+
+.quantity-input {
+	display: flex;
+	align-items: center;
+	width: 250px;
+	height: 40px;
+	background-color: white;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.quantity-input-field {
+	flex: 1;
+	height: 100%;
+	padding: 5px 10px;
+	border: none;
+	outline: none;
+	font-size: 16px;
+	text-align: center;
+}
+
+.add-to-cart-button {
+	width: 250px;
+	margin-top: 20px;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	background-color: #007bff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover {
+	background-color: #0069d9;
+}
+
+.cart-message {
+    margin-top: 5px;
+    margin-bottom: -10px;
+    text-align: center;
+	font-size: 14px;
+	color: orange;
+}
+
+.order-button {
+	width: 250px;
+	margin-top: 20px;
+	padding: 10px 0;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	background-color: #ffc107;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.order-button:hover {
+	background-color: #5F32FF;
+}
+
+.copy-link-button {
+	width: 250px;
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.copy-link-button:hover {
+	background-color: #0069d9;
+}
+
+.section-label {
+	padding: 20px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.goods-description {
+	margin-top: 25px;
+	margin-bottom: 50px;
+}
+
+.review-container {
+	padding: 0 30px 30px;
+}
+
+.review-item {
+	margin-top: 20px;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	font-size: 14px;
+}
+
+.review-rating-star {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 18px;
+}
+
+.review-item-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.review-item-header>div {
+	display: flex;
+	align-items: center;
+}
+
+.review-item-header>div>img {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+.review-item-header>.review-item-header-username {
+	font-size: 14px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.review-item-header>.review-item-header-date {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.review-item-rating {
+	margin-bottom: 10px;
+}
+
+.review-item-rating-star {
+	width: 20px;
+}
+
+.review-writer {
+	font-weight: bold;
+}
+
+.review-item-content {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.review-date {
+	margin-top: 10px;
+	font-size: 14px;
+	color: gray;
+}
+
+.toggle-reviews-button-container {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+
+#toggleReviewsBtn {
+	padding: 10px 25px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+	background-color: #ffc107;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+#toggleReviewsBtn:hover {
+	background-color: #5F32FF;
+}
+
+.no-question {
+	text-align: center;
+}
+
+.no-question-message {
+	margin: 0 0 20px 0;
+}
+
+.exist-question {
+	margin-top: 30px;
+	text-align: center;
+}
+
+.new-question-btn {
+	padding: 5px 15px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+	background-color: #ffc107;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.new-question-btn:hover {
+	background-color: #5F32FF;
+}
+
+.question-form {
+	display: none;
+	margin: auto;
+	width: 800px;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.question-title-input input {
+	padding-left: 10px;
+	width: 100%;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.question-content-input textarea {
+	padding: 10px;
+	margin-top: 3px;
+	width: 100%;
+	height: 200px;
+	border: none;
+	border-radius: 5px;
+	resize: none;
+	box-sizing: border-box;
+}
+
+.question-write-btn button {
+	margin-top: 10px;
+	font-size: 14px;
+	padding: 5px 15px;
+	background-color: #fff;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.question-write-btn button:hover {
+	background-color: #ddd;
+}
+
+.question-component {
+	border: 0.5px solid;
+	padding: 30px;
+	font-size: 12px;
+	color: #ddd;
+}
+
+.question-component p {
+	color: #fff;
+}
+
+.question-component hr {
+	margin: 30px 0 30px 0;
+	border-top: 0.5px;
+}
+
+.question-index {
+	padding: 0;
+	border: none;
+}
+
+.question-item {
+	margin-top: 20px;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	font-size: 14px;
+}
+
+.question-item-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.question-item-header>div {
+	display: flex;
+	align-items: center;
+}
+
+.question-item-header-username {
+	font-size: 14px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.question-item-header-title {
+	background-color: #5F32FF;
+	padding: 5px 15px;
+	border-radius: 15px;
+}
+
+.question-item-header-date {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.question-delete-btn {
+	color: #fff;
+	margin-left: 15px;
+	background-color: #FE2E2E;
+	border: none;
+	border-radius: 10px;
+	padding: 5px 10px auto;
+	cursor: pointer;
+}
+
+.question-item-content {
+	font-size: 14px;
+	line-height: 1.5;
+	margin-bottom: 10px;
+}
+
+.question-item-reply {
+	margin-left: 20px;
+	padding: 15px;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 5px;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.question-item-reply-title {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.reply-btn-component {
+	width: 100px;
+	margin-bottom: 15px;
+}
+
+.reply-btn, .answer-submit-btn {
+	padding: 3px 8px;
+	background-color: #fff;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.reply-btn:hover, .answer-submit-btn:hover {
+	background-color: #ddd;
+}
+
+.reply-textarea {
+	width: 100%;
+	resize: none;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}

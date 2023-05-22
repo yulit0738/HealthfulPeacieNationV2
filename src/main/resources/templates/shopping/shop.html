@@ -5,30 +5,37 @@
     <title>헬스로운 평화나라</title>
 </head>
 
-<body>
-<link rel="stylesheet" th:href="@{/shop.css}">
+<script th:src="@{/js/loginmodal.js}"></script>
+<link rel="stylesheet" th:href="@{/css/shop.css}">
 
+<body>
 <div class="body-container">
     <p class="body-label">메인 > 헬창쇼핑</p>
     <div class="goods-label-container">
         <div class="goods-label-header">체고급 헬창용품 🛒</div>
         <div class="goods-label-body">
-            득근을 위해, 그리고 근손실을 방지하기 위해서도 좋은 장비를 갖추는 것도 필수입니다.<br> 헬스로운 평화나라에는
-            소비자의 근손실 방지를 최대의 가치로 삼습니다. (사실 그냥 사란 뜻)
+            초절정 스미스 머신과 가슴 이두근 고립 웨이트 하세요<br>
+            근손실 방지를 최대의 가치로 삼습니다.
         </div>
     </div>
-    <div class="goods-container" th:each="item : ${itemList}">
-        <div class="goods-item">
-            <a th:href="@{/shopping/detail}" class="goods-item-info">
-                <div class="goods-thumbnail" th:style="'background-image: url(\'/\'' + ${item.thumbnail}" alt="상품 이미지"></div>
+    <div class="goods-container">
+        <div class="goods-item" th:each="item : ${itemList}">
+
+<!--            <a th:href="@{'/admin/products/detail/' + ${product.id} + '?category=' + ${currentCategory}}">-->
+<!--                <img th:src="'/' + ${product.thumbnail}" alt="상품 이미지"-->
+<!--                     class="goods-thumbnail">-->
+<!--            </a>-->
+            <a th:href="@{'/shopping/detail/' + ${item.id}}" class="goods-item-info">
+                <div class="goods-thumbnail" th:style="'background-image: url(' + @{'/' + ${item.thumbnail}} + ')'"></div>
                 <div class="goods-name" th:text="${item.name}"></div>
             </a>
-            <div class="goods-price" th:text="${item.price}'원'"></div>
+            <div class="goods-price" th:text="${numberFormat.format(item.price)} + '원'"></div>
+
             <div class="soldout" th:if="${item.inventory == 0}">일시품절</div>
         </div>
     </div>
 </div>
 
-<!--<footer th:replace="footer :: footer"></footer>-->
 </body>
+<footer th:replace="fragments/footer :: footer"></footer>
 </html>

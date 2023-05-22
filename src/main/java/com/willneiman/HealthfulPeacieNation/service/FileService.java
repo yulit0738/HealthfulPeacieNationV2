@@ -1,6 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.product.ProductForm;
+import com.willneiman.HealthfulPeacieNation.entity.product.NewProductForm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,7 +62,7 @@ public class FileService {
         return uniqueFilename;
     }
 
-    public Map<String, String> processProductFiles(ProductForm form) {
+    public Map<String, String> processProductFiles(NewProductForm form) {
         String thumbnailPath = storeFile(form.getThumbnail());
         String imagePath1 = storeFile(form.getImage1());
         String imagePath2 = storeFile(form.getImage2());

@@ -1,17 +1,21 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
-import com.willneiman.HealthfulPeacieNation.entity.product.Product;
-import com.willneiman.HealthfulPeacieNation.entity.product.ShopListForm;
+import com.willneiman.HealthfulPeacieNation.entity.product.*;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
+import com.willneiman.HealthfulPeacieNation.service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -19,6 +23,7 @@ import java.util.stream.Collectors;
 public class ShoppingController {
 
     private final ProductService productService;
+    private final RatingService ratingService;
 
     @GetMapping("/shopping")
     public String shopView(@RequestParam(defaultValue = "1") int page, Model model){
@@ -42,5 +47,26 @@ public class ShoppingController {
         model.addAttribute("endPage", endPage);;
 
         return "/shopping/shop";
+    }
+
+    @GetMapping("/shopping/detail/{id}")
+    public String shopDetailView(@PathVariable Long id, Model model){
+        Item item = (Item)productService.findProduct(id);
+        Map<String, Object> ratingData = ratingService.calculateRating(item);
+        ItemDetailForm itemDetailForm = new ItemDetailForm(item, "item");
+
+        model.addAttribute("item", itemDetailForm);
+        model.addAllAttributes(ratingData);
+
+        return "/shopping/shopdetail";
+    }
+
+    @PostMapping("/shopping/add-cart/{id}")
+    public String shopAddCart(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
+        Item item = (Item)productService.findProduct(id);
+        // 장바구니 추가 로직
+        redirectAttributes.addFlashAttribute("cartMessage", "상품이 장바구니에 담겼습니다!");
+
+        return "redirect:/shopping/detail/" + id;
     }
 }
