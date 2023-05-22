@@ -16,25 +16,31 @@
         <p class="content-head">회원정보 수정</p>
         <hr>
         <div class="information-container">
-            <form role="form" action="/my/info/modify" th:object="${myInformationForm}" method="post" onsubmit="return validateForm();">
+            <form role="form" action="/my/info/modify" th:object="${informationForm}" method="post" onsubmit="return validateForm();">
                 <div class="input-group">
                     <table>
                         <tr>
+                            <th>가입일</th>
+                            <td class="disable-input">
+                                <input type="text" th:field="*{registrationDate}" th:text="${registrationDate}" readonly>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>아이디</th>
                             <td class="disable-input">
-                                <input type="text" name="userId" value="myInformationForm.getUsername" readonly>
+                                <input type="text" th:field="*{username}" th:text="${username}" readonly>
                             </td>
                         </tr>
                         <tr>
                             <th>이름</th>
                             <td class="disable-input">
-                                <input type="text" name="userName" value="myInformationForm.getPassword"  readonly>
+                                <input type="text" th:field="*{name}" th:text="${name}" readonly>
                             </td>
                         </tr>
                         <tr>
                             <th>수정할 비밀번호</th>
                             <td>
-                                <input type="password" name="userPw" required>
+                                <input type="password" th:field="*{password}" required>
                             </td>
                         </tr>
                         <tr>
@@ -46,25 +52,30 @@
                         <tr>
                             <th>휴대폰 번호</th>
                             <td>
-                                <input type="text" name="userPhoneNumber" value="<%=user.getUserPhoneNumber()%>" required>
+                                <input type="text" th:field="*{phoneNumber}" th:text="${phoneNumber}" required>
                             </td>
                         </tr>
                         <tr>
                             <th>이메일</th>
                             <td>
-                                <input type="text" name="userEmail" value="<%=user.getUserEmail()%>" required>
+                                <input type="text" th:field="*{email}" value="informationForm.email" required>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <div class="withdraw-group">
-                    <span>탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.</span>
-                    <a class="withdraw-btn" onclick="deleteConfirm('유저 아이디')">회원탈퇴</a>
-                </div>
-                <div class="modify-btn">
-                    <button type="submit" class="modify-btn">수정 완료</button>
-                </div>
             </form>
+            <div class="withdraw-group">
+                <form action="/my/info/withdraw" method="post">
+                    <input type="hidden" name="id" th:value="${informationForm.id}"/>
+                    <div class="withdraw-group">
+                        <span>탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.</span>
+                        <button type="submit" class="withdraw-btn">회원탈퇴</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modify-btn">
+                <button type="submit" class="modify-btn">수정 완료</button>
+            </div>
         </div>
     </div>
 </div>
@@ -82,15 +93,6 @@
 		}
 
 		return true;
-	}
-
-
-	function deleteConfirm(userId) {
-		console.log("deleteConfirm 함수 호출됨");
-	    var result = confirm("삭제된 정보는 복구할 수 없습니다. 정말로 탈퇴하시겠습니까?");
-	    if (result) {
-	        location.href = "myWithdrawPro.jsp?userId=" + userId;
-	    }
 	}
 </script>
 </body>

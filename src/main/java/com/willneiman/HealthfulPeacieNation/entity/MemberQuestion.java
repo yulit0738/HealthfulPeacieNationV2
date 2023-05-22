@@ -1,5 +1,7 @@
 package com.willneiman.HealthfulPeacieNation.entity;
 
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.*;

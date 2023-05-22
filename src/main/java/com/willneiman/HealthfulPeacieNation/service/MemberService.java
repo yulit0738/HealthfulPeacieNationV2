@@ -1,14 +1,11 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.Member;
-import com.willneiman.HealthfulPeacieNation.enums.LoginResult;
+import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +66,11 @@ public class MemberService {
     // 비밀번호 검증
     public boolean checkPassword(String plainPassword, String hashedPassword) {
         return BCrypt.checkpw(plainPassword, hashedPassword);
+    }
+
+    // 회원탈퇴
+    public void withdraw(long id){
+        memberRepository.delete(id);
     }
 
 }

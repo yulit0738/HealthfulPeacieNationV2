@@ -70,6 +70,7 @@ input {
 }
 
 .withdraw-btn {
+    border: none;
 	padding: 3px 6px;
 	border-radius: 5px;
 	background-color: darkgray;

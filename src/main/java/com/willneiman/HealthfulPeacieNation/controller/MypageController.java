@@ -1,19 +1,19 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
-import com.willneiman.HealthfulPeacieNation.entity.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.Member;
-import com.willneiman.HealthfulPeacieNation.entity.PasswordCheckForm;
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.entity.member.MyInformationForm;
+import com.willneiman.HealthfulPeacieNation.entity.member.PasswordCheckForm;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -33,6 +33,12 @@ public class MypageController {
             return "members/myinfopwcheck";
         }
         // 비밀번호 검증을 이미 진행한 경우 생략
+        Member member = (Member) session.getAttribute("member");
+        MyInformationForm form =
+                new MyInformationForm(member.getId(), member.getUsername(),
+                member.getPassword(),member.getName(), member.getPhoneNumber(),
+                member.getEmail(), member.getRegistrationDate());
+        model.addAttribute("informationForm", form);
         return "members/myinfo";
     }
 
@@ -55,6 +61,14 @@ public class MypageController {
         }
         session.setAttribute("passwordCheck", true);
         return "redirect:/my/info";
+    }
+
+    @PostMapping("/my/info/withdraw/{id}")
+    public ResponseEntity<?> withdraw(@PathVariable Long id, Model model) {
+        System.out.println("id = " + id);
+        model.addAttribute("message", "회원 탈퇴가 정상적으로 완료되었습니다.");
+//        memberService.withdraw(id);
+        return ResponseEntity.ok().body("회원 탈퇴가 정상적으로 완료되었습니다.");
     }
 
     @GetMapping("my/orders")

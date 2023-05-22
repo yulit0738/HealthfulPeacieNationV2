@@ -1,5 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.entity;
 
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.entity.product.Product;
 import lombok.Getter;
 import lombok.Setter;

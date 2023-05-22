@@ -1,7 +1,7 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
-import com.willneiman.HealthfulPeacieNation.entity.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.Member;
+import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

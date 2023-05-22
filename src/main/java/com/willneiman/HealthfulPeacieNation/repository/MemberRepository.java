@@ -1,8 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.repository;
 
-import com.willneiman.HealthfulPeacieNation.entity.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.Member;
-import com.willneiman.HealthfulPeacieNation.enums.LoginResult;
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +38,7 @@ public class MemberRepository {
         if(em.find(Member.class, id) != null){
             em.remove(id);
         }
-        // 삭제하려는 아이디가 없을 경우 예외로직?
+        // TODO 삭제하려는 아이디가 없을 경우 예외뱉기 추가
     }
 
     public Member findByUsername(String username) {
