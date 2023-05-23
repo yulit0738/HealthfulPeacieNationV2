@@ -40,6 +40,10 @@ body {
 	background-color: rgb(0, 0, 0, 0.04);
 }
 
+.info-input {
+    width: 100%;
+}
+
 th {
 	min-width: 150px;
 	height: 60px;

@@ -10,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -63,12 +61,13 @@ public class MypageController {
         return "redirect:/my/info";
     }
 
-    @PostMapping("/my/info/withdraw/{id}")
-    public ResponseEntity<?> withdraw(@PathVariable Long id, Model model) {
-        System.out.println("id = " + id);
-        model.addAttribute("message", "회원 탈퇴가 정상적으로 완료되었습니다.");
-//        memberService.withdraw(id);
-        return ResponseEntity.ok().body("회원 탈퇴가 정상적으로 완료되었습니다.");
+    @PostMapping("/my/info/withdraw")
+    @LoginOnly
+    public String withdraw(@RequestParam Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 정상적으로 완료되었습니다.");
+        memberService.withdraw(id);
+        session.removeAttribute("member");
+        return "redirect:/";
     }
 
     @GetMapping("my/orders")

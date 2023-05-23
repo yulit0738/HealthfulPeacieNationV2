@@ -131,9 +131,7 @@ public class AdminProductController {
     @AdminOnly
     public String adminProductDelete(@RequestBody Map<String, Long> body){
         Long id = body.get("id");
-        System.out.println("id = " + id);
         productService.deleteProduct(id);
-        System.out.println("삭제처리");
         return "redirect:/admin/products/product-list";
     }
 
