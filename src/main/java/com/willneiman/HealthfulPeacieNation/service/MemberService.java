@@ -2,18 +2,22 @@ package com.willneiman.HealthfulPeacieNation.service;
 
 import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
 import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.entity.member.MyInformationForm;
 import com.willneiman.HealthfulPeacieNation.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     // 회원가입
+    @Transactional
     public String signup(Member member){
         String errorMessage = validateDuplicateMember(member);
         if (errorMessage != null) {
@@ -27,6 +31,15 @@ public class MemberService {
     // 아이디로 회원 조회
     public Member findMember(Long id){
         return memberRepository.findOne(id);
+    }
+
+    // 회원 정보 수정
+    @Transactional
+    public void modifyMember(MyInformationForm form) {
+        Member member = memberRepository.findOne(form.getId());
+        member.setPassword(hashPassword(form.getPassword()));
+        member.setPhoneNumber(form.getPhoneNumber());
+        member.setEmail(form.getEmail());
     }
 
     // 아이디 유효성 검사

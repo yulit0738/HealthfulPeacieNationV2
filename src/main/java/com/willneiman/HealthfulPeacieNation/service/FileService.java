@@ -31,6 +31,7 @@ public class FileService {
                 try {
                     Files.createDirectories(path.getParent());
                 } catch (IOException e) {
+                    //TODO chekced exception 이랑 unchecked exception 에 대해 찾아보면 좋을듯 ApplicationException 정도가 적당
                     throw new RuntimeException("디렉토리 생성 실패: " + path.getParent(), e);
                 }
             }

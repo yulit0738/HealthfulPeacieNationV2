@@ -44,7 +44,7 @@ public class AuthorizationAspect {
         HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute("member");
 
-        // 관리자 여부 확인
+        // 로그인 여부 확인
         if (member == null) {
             // 로그인 세션이 없을 경우 이전 페이지로 리다이렉트
             String referer = request.getHeader("Referer");

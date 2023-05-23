@@ -6,7 +6,6 @@ import com.willneiman.HealthfulPeacieNation.entity.member.MyInformationForm;
 import com.willneiman.HealthfulPeacieNation.entity.member.PasswordCheckForm;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,7 +30,9 @@ public class MypageController {
             return "members/myinfopwcheck";
         }
         // 비밀번호 검증을 이미 진행한 경우 생략
-        Member member = (Member) session.getAttribute("member");
+        Member loginMember = (Member) session.getAttribute("member");
+        Long id = loginMember.getId();
+        Member member = memberService.findMember(id);
         MyInformationForm form =
                 new MyInformationForm(member.getId(), member.getUsername(),
                 member.getPassword(),member.getName(), member.getPhoneNumber(),
@@ -49,15 +50,22 @@ public class MypageController {
 
         // 비밀번호를 입력하지 않았을 경우 돌려보내기
         if(result.hasErrors()){
-            return "/my/info";
+            return "redirect:/my/info";
         }
         //로그인 처리
         if(!memberService.checkPassword(form.getPassword(), member.getPassword())){
             session.setAttribute("passwordCheck", false);
             model.addAttribute("errorMessage", "비밀번호가 잘못되었습니다.");
-            return "/my/info";
+            return "redirect:/my/info";
         }
         session.setAttribute("passwordCheck", true);
+        return "redirect:/my/info";
+    }
+
+    @PostMapping("/my/info/modify")
+    @LoginOnly
+    public String modifyInformation(HttpSession session, MyInformationForm form) {
+        memberService.modifyMember(form);
         return "redirect:/my/info";
     }
 

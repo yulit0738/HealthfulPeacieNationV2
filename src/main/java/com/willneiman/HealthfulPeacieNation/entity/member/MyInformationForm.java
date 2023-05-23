@@ -18,6 +18,8 @@ public class MyInformationForm {
     private String email;
     private String registrationDate;
 
+    public MyInformationForm(){}
+
     public MyInformationForm(Long id, String username, String password, String name, String phoneNumber, String email, LocalDateTime registrationDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 a hh:mm", Locale.KOREA);
 

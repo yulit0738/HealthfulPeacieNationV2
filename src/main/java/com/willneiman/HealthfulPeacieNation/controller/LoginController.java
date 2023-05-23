@@ -1,5 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
+import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
 import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
 import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
@@ -37,10 +38,6 @@ public class LoginController {
     @PostMapping("/login")
     public String processLogin(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult result,
                                Model model, HttpSession session, HttpServletRequest request){
-        if(session.getAttribute("member") != null){
-            String referer = request.getHeader("Referer");
-            return "redirect:" + (referer != null ? referer : "/");
-        }
         if(result.hasErrors()){
             return "members/login";
         }
@@ -61,17 +58,8 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session, HttpServletRequest request){
-        if(session.getAttribute("member") == null){
-            // 로그인 세션이 없는 경우 직전에 보던 페이지로 redirect
-            String referer = request.getHeader("Referer");
-            if(referer != null){
-                return "redirect:" + referer;
-            } else {
-                // 세션이 있지만 직전 페이지 정보가 없는 경우 홈페이지로
-                return "redirect:/";
-            }
-        } // 세션 만료 후 홈페이지로
+    @LoginOnly
+    public String logout(HttpSession session){
         session.removeAttribute("member");
         return "redirect:/";
     }

@@ -11,13 +11,11 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class MemberRepository {
 
     private final EntityManager em;
 
     // 회원가입
-    @Transactional
     public Long save(Member member){
         em.persist(member);
         return member.getId();
@@ -33,13 +31,11 @@ public class MemberRepository {
                 .getResultList();
     }
 
-    @Transactional
     public void delete(Long id){
         Member member = em.find(Member.class, id);
         if(em.find(Member.class, id) != null){
             em.remove(member);
         }
-        // TODO 삭제하려는 아이디가 없을 경우 예외뱉기 추가
     }
 
     public Member findByUsername(String username) {
