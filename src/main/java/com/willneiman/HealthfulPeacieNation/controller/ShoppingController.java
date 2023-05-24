@@ -1,7 +1,9 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.entity.member.SignupForm;
+import com.willneiman.HealthfulPeacieNation.entity.order.Order;
 import com.willneiman.HealthfulPeacieNation.entity.order.OrderItemForm;
 import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
 import com.willneiman.HealthfulPeacieNation.entity.product.*;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,7 +37,6 @@ public class ShoppingController {
         List<ShopListForm> shopListForms = productList.stream()
                 .map(product -> new ShopListForm(product))
                 .collect(Collectors.toList());
-
 
         int totalPages = productService.findTotalPageByCategory("item", pageable);
         int startPage = Math.max(page - 5, 1);
@@ -83,5 +85,21 @@ public class ShoppingController {
 
     @PostMapping("/shopping/order")
     @LoginOnly
-    public String order(@ModelAttribute("item") OrderItemForm form)
+    public String order(@ModelAttribute("item") Item item,
+                        @RequestParam("paymentMethod") PaymentMethod paymentMethod,
+                        @RequestParam("quantity") int quantity,
+                        HttpSession session){
+        Order order = new Order();
+        order.setMember((Member) session.getAttribute("member"));
+        order.setPaymentMethod(paymentMethod);
+        System.out.println("item.getPrice() = " + item.getPrice());
+        System.out.println("quantity = " + quantity);
+        order.setTotalPrice(item.getPrice() * quantity);
+
+        System.out.println("order.getMember().getUsername() = " + order.getMember().getUsername());
+        System.out.println("paymentMethod = " + paymentMethod);
+        System.out.println("order.getTotalPrice() = " + order.getTotalPrice());
+
+        return "redirect:/myorders";
+    }
 }
