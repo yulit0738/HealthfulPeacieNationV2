@@ -1,4 +1,8 @@
 /* 전체 설정 */
+body {
+    margin: 0;
+}
+
 header {
 	background-color: #17171f;
 }

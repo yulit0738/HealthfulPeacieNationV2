@@ -1,5 +1,9 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
+import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
+import com.willneiman.HealthfulPeacieNation.entity.member.SignupForm;
+import com.willneiman.HealthfulPeacieNation.entity.order.OrderItemForm;
+import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
 import com.willneiman.HealthfulPeacieNation.entity.product.*;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import com.willneiman.HealthfulPeacieNation.service.RatingService;
@@ -8,10 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -62,6 +63,7 @@ public class ShoppingController {
     }
 
     @PostMapping("/shopping/add-cart/{id}")
+    @LoginOnly
     public String shopAddCart(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
         Item item = (Item)productService.findProduct(id);
         // 장바구니 추가 로직
@@ -69,4 +71,17 @@ public class ShoppingController {
 
         return "redirect:/shopping/detail/" + id;
     }
+
+    @GetMapping("/shopping/order/{id}")
+    @LoginOnly
+    public String orderView(@PathVariable Long id, Model model) {
+        Item item = (Item)productService.findProduct(id);
+        model.addAttribute("item", item);
+        model.addAttribute("paymentMethods", PaymentMethod.values());
+        return "shopping/order";
+    }
+
+    @PostMapping("/shopping/order")
+    @LoginOnly
+    public String order(@ModelAttribute("item") OrderItemForm form)
 }

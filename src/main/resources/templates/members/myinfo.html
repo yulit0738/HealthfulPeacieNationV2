@@ -10,6 +10,7 @@
 <link rel="stylesheet" th:href="@{/css/mypagesidebar.css}">
 
 <body>
+<div th:replace="fragments/loadingmodal :: loading-modal"></div>
 <div class="body-container">
     <div th:include="fragments/mypagesidebar :: mypagesidebar" class="side-bar"/>
     <div class="body-content">
@@ -28,23 +29,23 @@
             <form role="form" action="/my/info/modify" th:object="${informationForm}" method="post" id="modifyForm" onsubmit="return validateForm();">
                 <div class="input-group">
                     <table>
-                        <input type="hidden" name="id" th:value="${informationForm.id}" />
-<!--                        <tr>-->
-<!--                            <th>가입일</th>-->
-<!--                            <td class="disable-input">-->
-<!--                                <input type="text" th:field="*{registrationDate}" th:text="${registrationDate}" class="info-input" readonly>-->
-<!--                            </td>-->
-<!--                        </tr>-->
+                        <input type="hidden" th:field="*{id}" th:value="${id}" />
+                        <tr>
+                            <th>가입일</th>
+                            <td class="disable-input">
+                                <input type="text" th:field="*{registrationDate}" th:text="${registrationDate}" class="info-input" disabled>
+                            </td>
+                        </tr>
                         <tr>
                             <th>아이디</th>
                             <td class="disable-input">
-                                <input type="text" th:field="*{username}" th:text="${username}" readonly>
+                                <input type="text" th:field="*{username}" th:text="${username}" readonly disabled>
                             </td>
                         </tr>
                         <tr>
                             <th>이름</th>
                             <td class="disable-input">
-                                <input type="text" th:field="*{name}" th:text="${name}" readonly>
+                                <input type="text" th:field="*{name}" th:text="${name}" readonly disabled>
                             </td>
                         </tr>
                         <tr>
@@ -84,8 +85,8 @@
 <script>
 function validateForm() {
     // 비밀번호 필드와 비밀번호 확인 필드의 값을 가져옴
-    var password = document.getElementsById("password").value;
-    var passwordCheck = document.getElementsById("passwordCheck").value;
+    var password = document.getElementById("password").value;
+    var passwordCheck = document.getElementById("passwordCheck").value;
 
     // 비밀번호와 비밀번호 확인 필드의 값이 다를 경우 경고 메시지 표시
     if (password !== passwordCheck) {

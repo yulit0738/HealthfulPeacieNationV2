@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>헬스로운 평화나라</title>
+</head>
+
+<script th:src="@{/js/loginmodal.js}"></script>
+<link rel="stylesheet" th:href="@{/css/order.css}">
+<link rel="stylesheet" th:href="@{/css/mypagesidebar.css}">
+
+<body>
+<div th:replace="fragments/loadingmodal :: loading-modal"></div>
+<div class="body-container">
+    <div th:include="fragments/mypagesidebar :: mypagesidebar" class="side-bar"/>
+    <div class="body-content">
+        <p class="content-head">주문하기</p>
+        <hr>
+        <div class="order-form">
+            <form role="form" action="/shopping/order" th:object="${item}" method="post">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>대표이미지</th>
+                        <th>제품명</th>
+                        <th>가격</th>
+                        <th>수량</th>
+                        <th>결제수단</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="cartlist-thumbnail">
+                                <div class="cart-thumbnail"
+                                     th:style="'background-image: url(' + @{'/' + ${item.thumbnail}} + ')'"></div>
+                            </div>
+                        </td>
+                        <td style="width: 30%" ;><a class="goodsName"
+                                                    th:href="'/shopping/detail/' + ${item.id}"
+                                                    th:text="${item.name}"></a>
+                        </td>
+                        <td style="width: 15%" th:text="${numberFormat.format(item.price)} + '원'"></td>
+                        <td style="width: 10%"><input type="hidden" th:field="${id}" value="${id}">
+                            <div class="quantity-input">
+                                <input type="number" name="quantity"
+                                       class="quantity-input-field" min="1"
+                                       th:max="${item.stock}" value="1">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="order-form-row">
+                                <select name="paymentMethod" class="order-form-input">
+                                    <option th:each="method : ${paymentMethods}" th:value="${method}" th:text="${method.description}">
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${item.stock < 1}" class="order-button">
+                    <button class="order-cart-button-soldout">일시 품절</button>
+                </div>
+                <div th:unless="${item.stock < 1}" class="order-button">
+                    <button type="submit" class="order-cart-button">주문하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

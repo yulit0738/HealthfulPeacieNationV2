@@ -9,6 +9,7 @@
 <link rel="stylesheet" th:href="@{/css/shopdetail.css}" >
 
 <body>
+<div th:replace="fragments/loadingmodal :: loading-modal"></div>
 <div class="body-container">
     <p class="body-label">메인 > 헬창쇼핑 > 제품 상세</p>
 <!--    상단 섹션 : 썸네일, 상품 설명, 구매옵션의 세 가지 세부 섹션으로 나뉨-->
@@ -53,7 +54,7 @@
                 </form>
                 <span th:text="${cartMessage} ? ${cartMessage} : ''" class="cart-message"></span>
 
-                <a href="#" class="order-button">주문하기</a>
+                <a th:href="'/shopping/order/' + ${item.id}" class="order-button">주문하기</a>
                 <button type="button" class="copy-link-button" onclick="copyToClipboard()">상품 링크 복사</button>
             </div>
         </div>

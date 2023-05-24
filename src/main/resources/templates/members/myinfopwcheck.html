@@ -10,6 +10,7 @@
 <link rel="stylesheet" th:href="@{/css/mypagesidebar.css}">
 
 <body>
+<div th:replace="fragments/loadingmodal :: loading-modal"></div>
 <div class="body-container">
     <div th:include="fragments/mypagesidebar :: mypagesidebar" class="side-bar"/>
     <div class="body-content">

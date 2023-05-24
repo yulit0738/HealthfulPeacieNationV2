@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.entity;
+package com.willneiman.HealthfulPeacieNation.entity.order;
 
 import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.entity.product.Product;
@@ -33,6 +33,8 @@ public class OrderLine {
     private int orderCount;
 
     private int totalPrice;
+
+    private int rating;
 
     // 주문 상품의 총 가격
     public void setTotalPrice(){
