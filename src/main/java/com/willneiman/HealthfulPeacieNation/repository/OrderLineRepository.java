@@ -16,18 +16,16 @@ public class OrderLineRepository {
 
     private final EntityManager em;
 
-    // 주문 상품 저장
+    @Transactional
     public void save(OrderLine orderLine){
         em.persist(orderLine);
     }
 
-    // 주문 상품 전체 출력(필요 없음)
     public List<OrderLine> findAll(){
         return em.createQuery("select ol from OrderLine ol", OrderLine.class)
                 .getResultList();
     }
 
-    // 주문 상품 조회
     public OrderLine findOne(Long id){
         return em.find(OrderLine.class, id);
     }

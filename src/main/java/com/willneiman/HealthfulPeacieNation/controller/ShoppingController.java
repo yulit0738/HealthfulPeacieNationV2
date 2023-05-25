@@ -2,11 +2,9 @@ package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
 import com.willneiman.HealthfulPeacieNation.entity.member.Member;
-import com.willneiman.HealthfulPeacieNation.entity.member.SignupForm;
-import com.willneiman.HealthfulPeacieNation.entity.order.Order;
-import com.willneiman.HealthfulPeacieNation.entity.order.OrderItemForm;
-import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
+import com.willneiman.HealthfulPeacieNation.entity.order.*;
 import com.willneiman.HealthfulPeacieNation.entity.product.*;
+import com.willneiman.HealthfulPeacieNation.service.OrderService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import com.willneiman.HealthfulPeacieNation.service.RatingService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,7 @@ public class ShoppingController {
 
     private final ProductService productService;
     private final RatingService ratingService;
+    private final OrderService orderService;
 
     @GetMapping("/shopping")
     public String shopView(@RequestParam(defaultValue = "1") int page, Model model){
@@ -37,6 +36,7 @@ public class ShoppingController {
         List<ShopListForm> shopListForms = productList.stream()
                 .map(product -> new ShopListForm(product))
                 .collect(Collectors.toList());
+
 
         int totalPages = productService.findTotalPageByCategory("item", pageable);
         int startPage = Math.max(page - 5, 1);
@@ -85,21 +85,15 @@ public class ShoppingController {
 
     @PostMapping("/shopping/order")
     @LoginOnly
-    public String order(@ModelAttribute("item") Item item,
-                        @RequestParam("paymentMethod") PaymentMethod paymentMethod,
-                        @RequestParam("quantity") int quantity,
-                        HttpSession session){
-        Order order = new Order();
-        order.setMember((Member) session.getAttribute("member"));
-        order.setPaymentMethod(paymentMethod);
-        System.out.println("item.getPrice() = " + item.getPrice());
-        System.out.println("quantity = " + quantity);
-        order.setTotalPrice(item.getPrice() * quantity);
+    public String order(@RequestParam("id")Long id,
+                        @RequestParam PaymentMethod paymentMethod,
+                        @RequestParam Integer quantity,
+                        HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        // 주문서 빌더
 
-        System.out.println("order.getMember().getUsername() = " + order.getMember().getUsername());
-        System.out.println("paymentMethod = " + paymentMethod);
-        System.out.println("order.getTotalPrice() = " + order.getTotalPrice());
+        orderService.order(id, member, paymentMethod, quantity);
 
-        return "redirect:/myorders";
+        return "redirect:/my/orders";
     }
 }

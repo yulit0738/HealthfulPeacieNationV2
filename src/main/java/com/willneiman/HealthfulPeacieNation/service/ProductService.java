@@ -69,6 +69,7 @@ public class ProductService {
         productRepository.delete(id);
     }
 
-
-
+    public void adjustStock(Long itemId, int adjustment) {
+        productRepository.adjustStock(itemId, adjustment);
+    }
 }

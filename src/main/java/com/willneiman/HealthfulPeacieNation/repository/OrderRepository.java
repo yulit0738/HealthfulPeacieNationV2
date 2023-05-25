@@ -15,8 +15,10 @@ public class OrderRepository {
 
     private final EntityManager em;
 
-    public void save(Order order){
+    @Transactional
+    public Long save(Order order){
         em.persist(order);
+        return order.getId();
     }
 
     public List<Order> findAll(){
