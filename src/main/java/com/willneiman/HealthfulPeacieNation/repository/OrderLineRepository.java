@@ -1,6 +1,7 @@
 package com.willneiman.HealthfulPeacieNation.repository;
 
 import com.willneiman.HealthfulPeacieNation.entity.order.Order;
+import com.willneiman.HealthfulPeacieNation.entity.order.OrderLine;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,22 +12,21 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class OrderRepository {
+public class OrderLineRepository {
 
     private final EntityManager em;
 
     @Transactional
-    public Long save(Order order){
-        em.persist(order);
-        return order.getId();
+    public void save(OrderLine orderLine){
+        em.persist(orderLine);
     }
 
-    public List<Order> findAll(){
-        return em.createQuery("select o from Order o", Order.class)
+    public List<OrderLine> findAll(){
+        return em.createQuery("select ol from OrderLine ol", OrderLine.class)
                 .getResultList();
     }
 
-    public Order findOne(Long id){
-        return em.find(Order.class, id);
+    public OrderLine findOne(Long id){
+        return em.find(OrderLine.class, id);
     }
 }

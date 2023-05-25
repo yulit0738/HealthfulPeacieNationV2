@@ -83,4 +83,18 @@ public class ProductRepository {
 
         return (int) Math.ceil((double) totalProducts / pageable.getPageSize());
     }
+    @Transactional
+    public void adjustStock(Long id, int adjustment) {
+        Item item = em.find(Item.class, id);
+        if (item != null) {
+            int newStock = item.getStock() - adjustment;
+            if (newStock < 0) {
+                throw new IllegalArgumentException("Insufficient stock for adjustment");
+            }
+            item.setStock(newStock);
+        } else {
+            throw new IllegalArgumentException("Invalid itemId: " + id);
+        }
+    }
+
 }

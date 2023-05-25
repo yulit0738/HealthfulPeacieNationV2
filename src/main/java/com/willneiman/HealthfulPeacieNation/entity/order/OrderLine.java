@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.*;
 public class OrderLine {
     @Id
     @GeneratedValue
-    private String id;
+    private long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_id")
@@ -40,4 +40,5 @@ public class OrderLine {
     public void setTotalPrice(){
         this.totalPrice = orderPrice * orderCount;
     }
+
 }

@@ -1,10 +1,10 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
-import com.willneiman.HealthfulPeacieNation.entity.member.SignupForm;
-import com.willneiman.HealthfulPeacieNation.entity.order.OrderItemForm;
-import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
+import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.entity.order.*;
 import com.willneiman.HealthfulPeacieNation.entity.product.*;
+import com.willneiman.HealthfulPeacieNation.service.OrderService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import com.willneiman.HealthfulPeacieNation.service.RatingService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class ShoppingController {
 
     private final ProductService productService;
     private final RatingService ratingService;
+    private final OrderService orderService;
 
     @GetMapping("/shopping")
     public String shopView(@RequestParam(defaultValue = "1") int page, Model model){
@@ -83,5 +85,15 @@ public class ShoppingController {
 
     @PostMapping("/shopping/order")
     @LoginOnly
-    public String order(@ModelAttribute("item") OrderItemForm form)
+    public String order(@RequestParam("id")Long id,
+                        @RequestParam PaymentMethod paymentMethod,
+                        @RequestParam Integer quantity,
+                        HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        // 주문서 빌더
+
+        orderService.order(id, member, paymentMethod, quantity);
+
+        return "redirect:/my/orders";
+    }
 }
