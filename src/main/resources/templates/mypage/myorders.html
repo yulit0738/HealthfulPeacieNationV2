@@ -17,8 +17,8 @@
         <p class="content-head">주문 내역</p>
         <hr>
 <!--        TODO 주문 내역이 없을 경우 예외처리-->
-        <p th:if="${orderLine.isEmpty()}">주문 내역이 없습니다.</p>
-        <div th:unless="${orderLine.isEmpty()}" class="orderlist">
+        <p th:if="${orderList.isEmpty()}">주문 내역이 없습니다.</p>
+        <div th:unless="${orderList.isEmpty()}" class="orderlist">
 
 </body>
 </html>

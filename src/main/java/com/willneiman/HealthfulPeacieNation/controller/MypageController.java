@@ -32,7 +32,7 @@ public class MypageController {
         Boolean passwordCheck = (Boolean) session.getAttribute("passwordCheck");
         // 비밀번호 검증을 하지 않은 채로 요청 시
         if(session.getAttribute("passwordCheck") == null || passwordCheck == false){
-            return "members/myinfopwcheck";
+            return "mypage/myinfopwcheck";
         }
         // 비밀번호 검증을 이미 진행한 경우 생략
         Member loginMember = (Member) session.getAttribute("member");
@@ -43,7 +43,7 @@ public class MypageController {
                 member.getPassword(),member.getName(), member.getPhoneNumber(),
                 member.getEmail(), member.getRegistrationDate());
         model.addAttribute("informationForm", form);
-        return "members/myinfo";
+        return "mypage/myinfo";
     }
 
     @PostMapping("/my/info")
@@ -95,36 +95,36 @@ public class MypageController {
         }
 
         model.addAttribute("orderList", orderList);
-        return "members/myorders";
+        return "mypage/myorders";
     }
 
     @GetMapping("my/cart")
     @LoginOnly
     public String mypageCartView(){
-        return "members/mycart";
+        return "mypage/mycart";
     }
 
     @GetMapping("my/reviews")
     @LoginOnly
     public String mypageReviewsView(){
-        return "members/myreviews";
+        return "mypage/myreviews";
     }
 
     @GetMapping("my/tickets")
     @LoginOnly
     public String mypageTicketsView(){
-        return "members/mytickets";
+        return "mypage/mytickets";
     }
 
     @GetMapping("my/reservations")
     @LoginOnly
     public String mypageReservationView(){
-        return "members/myreservations";
+        return "mypage/myreservations";
     }
 
     @GetMapping("my/questions")
     @LoginOnly
     public String mypageQuestionsView(){
-        return "members/myquestions";
+        return "mypage/myquestions";
     }
 }

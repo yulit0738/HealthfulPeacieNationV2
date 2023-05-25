@@ -38,7 +38,7 @@ public class OrderController {
                         @RequestParam Integer quantity,
                         HttpSession session) {
         Member member = (Member) session.getAttribute("member");
-
+//TODO 주문 수량, 재고 수량 조정, 주문 상태에 대한 유효성 검사 필요
         orderService.order(id, member, paymentMethod, quantity);
 
         return "redirect:/my/orders";

@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
 
         mav.addObject("message", e.getMessage());
         mav.addObject("url", req.getRequestURL());
-        mav.setViewName("/error");
+        mav.setViewName("error/error");
         return mav;
     }
 }
