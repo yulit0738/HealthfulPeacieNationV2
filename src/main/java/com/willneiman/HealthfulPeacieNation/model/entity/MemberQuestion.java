@@ -1,6 +1,6 @@
-package com.willneiman.HealthfulPeacieNation.entity;
+package com.willneiman.HealthfulPeacieNation.model.entity;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
 
 import javax.persistence.*;
 

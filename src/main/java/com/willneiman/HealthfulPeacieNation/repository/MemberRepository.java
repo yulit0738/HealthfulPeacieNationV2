@@ -1,9 +1,8 @@
 package com.willneiman.HealthfulPeacieNation.repository;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

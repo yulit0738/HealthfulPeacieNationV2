@@ -1,7 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.repository;
 
-import com.willneiman.HealthfulPeacieNation.entity.order.Order;
-import com.willneiman.HealthfulPeacieNation.entity.order.OrderLine;
+import com.willneiman.HealthfulPeacieNation.model.entity.order.OrderLine;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

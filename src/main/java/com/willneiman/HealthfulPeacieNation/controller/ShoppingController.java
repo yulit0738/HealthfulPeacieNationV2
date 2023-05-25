@@ -1,9 +1,10 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
-import com.willneiman.HealthfulPeacieNation.entity.order.*;
-import com.willneiman.HealthfulPeacieNation.entity.product.*;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Item;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.ItemDetailForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Product;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.ShopListForm;
 import com.willneiman.HealthfulPeacieNation.service.OrderService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import com.willneiman.HealthfulPeacieNation.service.RatingService;
@@ -15,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

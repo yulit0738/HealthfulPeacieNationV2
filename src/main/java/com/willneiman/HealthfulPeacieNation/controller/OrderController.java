@@ -1,9 +1,9 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
-import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
-import com.willneiman.HealthfulPeacieNation.entity.product.Item;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.order.PaymentMethod;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Item;
 import com.willneiman.HealthfulPeacieNation.service.OrderService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
 import lombok.RequiredArgsConstructor;

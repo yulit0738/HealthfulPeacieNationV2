@@ -20,8 +20,8 @@
         <div class="form-group">
             <label for="productType">상품 유형:</label>
             <select id="productType" th:field="*{category}" onchange="changeProductType()">
-                <option value="item" selected>헬창용품</option>
-                <option value="ticket">PT서비스</option>
+                <option value="ITEM" selected>헬창용품</option>
+                <option value="TICKET">PT서비스</option>
             </select>
             <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error-message">Incorrect</p>
         </div>
@@ -78,10 +78,10 @@
 <script>
     function changeProductType() {
         var productType = document.getElementById('productType').value;
-        if (productType === 'item') {
+        if (productType === 'ITEM') {
             document.getElementById('itemFields').style.display = 'block';
             document.getElementById('ticketFields').style.display = 'none';
-        } else if (productType === 'ticket') {
+        } else if (productType === 'TICKET') {
             document.getElementById('itemFields').style.display = 'none';
             document.getElementById('ticketFields').style.display = 'block';
         }

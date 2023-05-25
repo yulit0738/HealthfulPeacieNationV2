@@ -1,7 +1,7 @@
 package com.willneiman.HealthfulPeacieNation.controller.advice;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.member.PasswordCheckForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.LoginForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.PasswordCheckForm;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import java.text.NumberFormat;

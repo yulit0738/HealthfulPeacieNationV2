@@ -1,7 +1,7 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.LoginForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.repository.MemberRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

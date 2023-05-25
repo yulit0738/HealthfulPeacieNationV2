@@ -1,14 +1,16 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.product.NewProductForm;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.willneiman.HealthfulPeacieNation.model.ProductImageInfo;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.NewProductForm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +20,9 @@ public class FileService {
 
     @Value("${file.upload-dir}")
     private String uploadDir;
+
+    // 객체생성 비용은 비싸고 이렇게 static 으로 만들어 두지 않으면 파일 저장해서 할떄마다 매번 생성하므로 미리 만들어두고 재활용함
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public String storeFile(MultipartFile file) {
         if (file != null && !file.isEmpty()) {
@@ -63,16 +68,18 @@ public class FileService {
         return uniqueFilename;
     }
 
-    public Map<String, String> processProductFiles(NewProductForm form) {
+    public ProductImageInfo processProductFiles(NewProductForm form) {
         String thumbnailPath = storeFile(form.getThumbnail());
         String imagePath1 = storeFile(form.getImage1());
         String imagePath2 = storeFile(form.getImage2());
 
+
+        // 굳이 이렇게 안해도 되지만 ObjectMapper가 하는일이 뭔지 찍먹하라고 해둠
         Map<String, String> fileMap = new HashMap<>();
         fileMap.put("thumbnail", thumbnailPath);
-        fileMap.put("image1", imagePath1);
-        fileMap.put("image2", imagePath2);
+        fileMap.put("imagePath1", imagePath1);
+        fileMap.put("imagePath2", imagePath2);
 
-        return fileMap;
+        return objectMapper.convertValue(fileMap, ProductImageInfo.class);
     }
 }

@@ -1,5 +1,6 @@
-package com.willneiman.HealthfulPeacieNation.entity.product;
+package com.willneiman.HealthfulPeacieNation.model.entity.product;
 
+import com.willneiman.HealthfulPeacieNation.model.enums.ItemCategory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -20,11 +22,18 @@ public class NewProductForm {
     private int stock;
     @Min(value = 0, message = "남은 사용횟수는 0 이상이어야 합니다.")
     private int remainingUses;
-    @NotEmpty
-    private String category;
+    @NotNull
+    private ItemCategory category;
     private String description;
     private MultipartFile thumbnail;
     private MultipartFile image1;
     private MultipartFile image2;
 
+    public boolean isItemProduct() {
+        return category != null && category.isItem();
+    }
+
+    public boolean isTicketProduct() {
+        return category != null && category.isTicket();
+    }
 }

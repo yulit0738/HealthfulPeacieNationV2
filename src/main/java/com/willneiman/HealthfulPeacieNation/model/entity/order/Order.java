@@ -1,6 +1,6 @@
-package com.willneiman.HealthfulPeacieNation.entity.order;
+package com.willneiman.HealthfulPeacieNation.model.entity.order;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

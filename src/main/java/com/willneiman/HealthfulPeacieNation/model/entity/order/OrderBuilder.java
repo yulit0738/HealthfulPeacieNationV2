@@ -1,9 +1,6 @@
-package com.willneiman.HealthfulPeacieNation.entity.order;
+package com.willneiman.HealthfulPeacieNation.model.entity.order;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
-import lombok.Setter;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.data.jpa.domain.AbstractAuditable;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
 
 public class OrderBuilder {
 

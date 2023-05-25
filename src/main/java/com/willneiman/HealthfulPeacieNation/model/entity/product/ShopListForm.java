@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.entity.product;
+package com.willneiman.HealthfulPeacieNation.model.entity.product;
 
 import lombok.Getter;
 import lombok.Setter;

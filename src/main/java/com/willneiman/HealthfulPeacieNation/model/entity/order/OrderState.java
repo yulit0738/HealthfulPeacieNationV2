@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.entity.order;
+package com.willneiman.HealthfulPeacieNation.model.entity.order;
 
 public enum OrderState {
     ORDER_RECEIVED, // 주문접수

@@ -1,4 +1,4 @@
-package com.willneiman.HealthfulPeacieNation.entity.order;
+package com.willneiman.HealthfulPeacieNation.model.entity.order;
 
 public enum PaymentMethod {
     CREDIT_CARD("신용카드"), //신용카드

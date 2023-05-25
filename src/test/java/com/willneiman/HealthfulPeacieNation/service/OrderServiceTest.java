@@ -1,10 +1,10 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
-import com.willneiman.HealthfulPeacieNation.entity.order.Order;
-import com.willneiman.HealthfulPeacieNation.entity.order.OrderLine;
-import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
-import com.willneiman.HealthfulPeacieNation.entity.product.Item;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.order.Order;
+import com.willneiman.HealthfulPeacieNation.model.entity.order.OrderLine;
+import com.willneiman.HealthfulPeacieNation.model.entity.order.PaymentMethod;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

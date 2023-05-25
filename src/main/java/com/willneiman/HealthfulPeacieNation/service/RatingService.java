@@ -1,6 +1,6 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.product.Product;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

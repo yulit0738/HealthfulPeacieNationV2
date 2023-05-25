@@ -1,7 +1,11 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.AdminOnly;
-import com.willneiman.HealthfulPeacieNation.entity.product.*;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.NewProductForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Product;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.ProductDetailForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.ProductListForm;
+import com.willneiman.HealthfulPeacieNation.model.enums.ItemCategory;
 import com.willneiman.HealthfulPeacieNation.service.FileService;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import com.willneiman.HealthfulPeacieNation.service.ProductService;
@@ -59,55 +63,34 @@ public class AdminProductController {
             return "admin/products/newproduct";
         }
 
-        Product product;
-        if ("item".equals(form.getCategory())) {
-            product = new Item();
-            ((Item) product).setStock(form.getStock());
-        } else if ("ticket".equals(form.getCategory())) {
-            product = new Ticket();
-            ((Ticket) product).setRemainingUses(form.getRemainingUses());
-        } else {
-            throw new IllegalArgumentException("유효하지 않은 카테고리: " + form.getCategory());
-        }
-
-        product.setName(form.getName());
-        product.setPrice(form.getPrice());
-        product.setDescription(form.getDescription());
-
         // FileService를 사용해 파일을 저장하고, 저장된 파일의 경로를 받아오기
-        Map<String, String> productFiles = fileService.processProductFiles(form);
-
-        // 저장된 파일의 경로를 Product에 설정하기
-        product.setThumbnail(productFiles.get("thumbnail"));
-        product.setImage1(productFiles.get("image1"));
-        product.setImage2(productFiles.get("image2"));
-
-        productService.newProduct(product);
+        productService.newProduct(Product.of(form, fileService.processProductFiles(form)));
         return "redirect:/admin/products/product-list";
     }
 
     @GetMapping("/admin/products/product-list")
     @AdminOnly
     public String adminProductList(HttpSession session, Model model,
-                              @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "item") String category) {
-        Pageable pageable = PageRequest.of(page-1, 10);
-        List<Product> productList = productService.findProductsByPageAndCategory(pageable, category);
+                                   @RequestParam(defaultValue = "1") int page,
+                                   @RequestParam(defaultValue = "ITEM") ItemCategory category) {
+        Pageable pageable = PageRequest.of(page - 1, 10);
+        List<Product> productList = productService.findProductsByPageAndCategory(pageable, category.getName().toLowerCase());
 
         List<ProductListForm> productListForms = productList.stream()
-                .map(product -> new ProductListForm(product, category))
+                .map(product -> new ProductListForm(product, category.getName().toLowerCase()))
                 .collect(Collectors.toList());
 
-        int totalPages = productService.findTotalPageByCategory(category, pageable);
+        int totalPages = productService.findTotalPageByCategory(category.getName().toLowerCase(), pageable);
         int startPage = Math.max(page - 5, 1);
         int endPage = Math.min(startPage + 9, totalPages);
 
         model.addAttribute("productList", productListForms);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("currentCategory", category);
+        model.addAttribute("currentCategory", category.getName());
         model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);;
+        model.addAttribute("endPage", endPage);
+        ;
         return "admin/products/productlist";
     }
 
@@ -115,7 +98,7 @@ public class AdminProductController {
     @GetMapping("/admin/products/detail/{id}")
     @AdminOnly
     public String adminProductDetail(@PathVariable Long id, Model model,
-                              @RequestParam String category) {
+                                     @RequestParam String category) {
         Product product = productService.findProduct(id);
         //별점 로직 구현
         Map<String, Object> ratingData = ratingService.calculateRating(product);
@@ -129,7 +112,7 @@ public class AdminProductController {
 
     @PostMapping("/admin/products/delete")
     @AdminOnly
-    public String adminProductDelete(@RequestBody Map<String, Long> body){
+    public String adminProductDelete(@RequestBody Map<String, Long> body) {
         Long id = body.get("id");
         productService.deleteProduct(id);
         return "redirect:/admin/products/product-list";
@@ -142,6 +125,7 @@ public class AdminProductController {
         productService.setItemStock(id, quantity);
         return "redirect:/admin/products/detail/" + id + "?category=item";
     }
+
     @PostMapping("/admin/products/adjust-remaining-uses")
     @AdminOnly
     public String adminAdjustRemainingUses(@RequestParam("quantity") int quantity,

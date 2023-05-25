@@ -1,8 +1,8 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
-import com.willneiman.HealthfulPeacieNation.entity.member.MyInformationForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.LoginForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.MyInformationForm;
 import com.willneiman.HealthfulPeacieNation.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;

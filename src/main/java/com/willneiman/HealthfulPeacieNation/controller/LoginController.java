@@ -1,8 +1,8 @@
 package com.willneiman.HealthfulPeacieNation.controller;
 
 import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
-import com.willneiman.HealthfulPeacieNation.entity.member.LoginForm;
-import com.willneiman.HealthfulPeacieNation.entity.member.Member;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.LoginForm;
+import com.willneiman.HealthfulPeacieNation.model.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,9 +26,9 @@ public class LoginController {
     로그인 페이지 불러오기
      */
     @GetMapping("/login")
-    public String login(Model model, HttpSession session, HttpServletRequest request){
+    public String login(Model model, HttpSession session, HttpServletRequest request) {
         // 이미 세션에 로그인 정보가 있을 경우 이전 페이지로 돌려보내기
-        if(session.getAttribute("member") != null){
+        if (session.getAttribute("member") != null) {
             String referer = request.getHeader("Referer");
             return "redirect:" + (referer != null ? referer : "/");
         }
@@ -37,13 +37,13 @@ public class LoginController {
 
     @PostMapping("/login")
     public String processLogin(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult result,
-                               Model model, HttpSession session, HttpServletRequest request){
-        if(result.hasErrors()){
+                               Model model, HttpSession session, HttpServletRequest request) {
+        if (result.hasErrors()) {
             return "members/login";
         }
         //로그인 처리
         Member member = memberService.login(form);
-        if(member == null){
+        if (member == null) {
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
             return "members/login";
         }
@@ -59,7 +59,7 @@ public class LoginController {
 
     @GetMapping("/logout")
     @LoginOnly
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.removeAttribute("member");
         return "redirect:/";
     }

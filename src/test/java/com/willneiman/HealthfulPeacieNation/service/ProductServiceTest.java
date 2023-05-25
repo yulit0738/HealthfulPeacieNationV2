@@ -1,8 +1,8 @@
 package com.willneiman.HealthfulPeacieNation.service;
 
-import com.willneiman.HealthfulPeacieNation.entity.product.Item;
-import com.willneiman.HealthfulPeacieNation.entity.product.Product;
-import com.willneiman.HealthfulPeacieNation.entity.product.Ticket;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Item;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Product;
+import com.willneiman.HealthfulPeacieNation.model.entity.product.Ticket;
 import com.willneiman.HealthfulPeacieNation.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -14,8 +14,8 @@
 
     <!-- Add options for Item and Ticket -->
     <select id="categorySelector">
-        <option value="item" th:selected="${currentCategory == 'item'}">헬창용품</option>
-        <option value="ticket" th:selected="${currentCategory == 'ticket'}">PT서비스</option>
+        <option value="ITEM" th:selected="${currentCategory == 'ITEM'}">헬창용품</option>
+        <option value="TICKET" th:selected="${currentCategory == 'TICKET'}">PT서비스</option>
     </select>
 
     <a href="/admin/products/new" class="add-goods-button">상품 등록</a>
