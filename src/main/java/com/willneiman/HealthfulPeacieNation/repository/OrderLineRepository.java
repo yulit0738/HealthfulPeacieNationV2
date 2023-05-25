@@ -29,4 +29,10 @@ public class OrderLineRepository {
     public OrderLine findOne(Long id){
         return em.find(OrderLine.class, id);
     }
+
+    public List<OrderLine> findAllByOrderId(Long id) {
+        return em.createQuery("select ol from OrderLine ol where ol.id = :id", OrderLine.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
 }

@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>헬스로운 평화나라</title>
 </head>
+
+<script th:src="@{/js/loginmodal.js}"></script>
+<link rel="stylesheet" th:href="@{/css/myorders.css}">
+<link rel="stylesheet" th:href="@{/css/mypagesidebar.css}">
+
 <body>
+<div th:replace="fragments/loadingmodal :: loading-modal"></div>
+<div class="body-container">
+    <div th:include="fragments/mypagesidebar :: mypagesidebar" class="side-bar"/>
+    <div class="body-content">
+        <p class="content-head">주문 내역</p>
+        <hr>
+<!--        TODO 주문 내역이 없을 경우 예외처리-->
+        <p th:if="${orderLine.isEmpty()}">주문 내역이 없습니다.</p>
+        <div th:unless="${orderLine.isEmpty()}" class="orderlist">
 
 </body>
 </html>

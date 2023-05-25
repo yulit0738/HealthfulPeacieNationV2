@@ -73,27 +73,4 @@ public class ShoppingController {
 
         return "redirect:/shopping/detail/" + id;
     }
-
-    @GetMapping("/shopping/order/{id}")
-    @LoginOnly
-    public String orderView(@PathVariable Long id, Model model) {
-        Item item = (Item)productService.findProduct(id);
-        model.addAttribute("item", item);
-        model.addAttribute("paymentMethods", PaymentMethod.values());
-        return "shopping/order";
-    }
-
-    @PostMapping("/shopping/order")
-    @LoginOnly
-    public String order(@RequestParam("id")Long id,
-                        @RequestParam PaymentMethod paymentMethod,
-                        @RequestParam Integer quantity,
-                        HttpSession session) {
-        Member member = (Member) session.getAttribute("member");
-        // 주문서 빌더
-
-        orderService.order(id, member, paymentMethod, quantity);
-
-        return "redirect:/my/orders";
-    }
 }

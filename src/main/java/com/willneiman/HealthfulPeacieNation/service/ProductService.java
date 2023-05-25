@@ -69,7 +69,17 @@ public class ProductService {
         productRepository.delete(id);
     }
 
+    // 주문 시 재고 감소(환불 시 재고 복구)
     public void adjustStock(Long itemId, int adjustment) {
         productRepository.adjustStock(itemId, adjustment);
+    }
+
+    // item 재고 수정
+    public void setItemStock(Long id, int quantity) {
+        productRepository.setStock(id, quantity);
+    }
+    // ticket 기본 사용횟수 수정
+    public void setTicketRemainingUses(Long id, int quantity) {
+        productRepository.setRemainingUses(id, quantity);
     }
 }

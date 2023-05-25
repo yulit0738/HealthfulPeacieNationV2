@@ -9,9 +9,13 @@ import com.willneiman.HealthfulPeacieNation.repository.OrderRepository;
 import com.willneiman.HealthfulPeacieNation.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -20,6 +24,7 @@ public class OrderService {
     private final ProductService productService;
     private final OrderLineRepository orderLineRepository;
 
+    @Transactional
     public Long order(Long id, Member member, PaymentMethod paymentMethod, Integer quantity){
 
         Product product = productService.findProduct(id);
@@ -38,7 +43,7 @@ public class OrderService {
                 .setOrder(order)
                 .setMember(member)
                 .setProduct(product)
-                .setOrderPrice(quantity, product.getPrice())
+                .setOrderPrice(product.getPrice())
                 .setOrderCount(quantity)
                 .build();
         orderLineRepository.save(orderLine);
@@ -54,5 +59,13 @@ public class OrderService {
 
     public Order findOrder(Long id){
         return orderRepository.findOne(id);
+    }
+
+    public List<Order> orderListByMember(Long id){
+        return orderRepository.findAllByMemberId(id);
+    }
+
+    public List<OrderLine> findOrderLinesByOrderId(Long id) {
+        return orderLineRepository.findAllByOrderId(id);
     }
 }

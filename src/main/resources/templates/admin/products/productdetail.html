@@ -11,7 +11,7 @@
 </header>
 
 <div class="goods-detail-container">
-    <a href="javascript:history.back();" class="btn-back"> &lt; 뒤로가기 </a>
+    <a href="/admin/products/product-list" class="btn-back"> &lt; 뒤로가기 </a>
     <p class="goods-detail-label">상품 관리 - 상세정보</p>
     <div class="goods-top-section">
 
@@ -44,20 +44,19 @@
         <div class="goods-top-section-third">
             <div class="modify-menu-container">
                 <div th:if="${currentCategory == 'item'}">
-                    <label class="quantity-label">재고 추가/차감</label>
-                    <form id="stock-form" action="#" method="post">
-                        <input type="hidden" name="goodsId" value="${product.id}">
-                        <input type="number" class="quantity-input" min="1" name="quantity" value="1">
-                        <button type="button" class="add-to-cart-button" name="action" value="increase" onclick="submitForm('increase')">재고 추가</button>
-                        <button type="button" class="add-to-cart-button" name="action" value="decrease" onclick="submitForm('decrease')">재고 차감</button>
+                    <label class="quantity-label">재고 설정</label>
+                    <form id="stock-form" th:object="${product}" th:action="@{/admin/products/adjust-stock}" method="post">
+                        <input type="hidden"  th:field="*{id}" value="${product.id}">
+                        <input type="number" class="quantity-input" min="0" name="quantity" value="1">
+                        <button type="submit" class="add-to-cart-button" name="action" value="increase">재고 추가</button>
                     </form>
                 </div>
                 <div th:if="${currentCategory == 'ticket'}">
                     <label class="quantity-label">기본 이용 횟수 변경</label>
-                    <form id="stock-form" action="#" method="post">
-                        <input type="hidden" name="goodsId" value="${product.id}">
+                    <form id="stock-form" th:object="${product}" th:action="@{/admin/products/adjust-remaining-uses}" method="post">
+                        <input type="hidden" th:field="*{id}" value="${product.id}">
                         <input type="number" class="quantity-input" min="1" name="quantity" value="1">
-                        <button type="button" class="add-to-cart-button" name="action" value="increase" onclick="submitForm('increase')">횟수 변경</button>
+                        <button type="submit" class="add-to-cart-button" name="action" value="increase">횟수 변경</button>
                     </form>
                 </div>
                 <a href="#" class="modify-button">상품 정보 수정</a>
@@ -74,10 +73,6 @@
 </body>
 
 <script>
-function submitForm(action) {
-    document.getElementById('stock-form').action = 'adminFixStock.jsp?action=' + action;
-    document.getElementById('stock-form').submit();
-  }
 
 function deleteProduct(productId) {
     var result = confirm("삭제된 데이터는 복원할 수 없습니다. 정말 삭제하시겠습니까?");

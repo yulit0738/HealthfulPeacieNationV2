@@ -135,4 +135,19 @@ public class AdminProductController {
         return "redirect:/admin/products/product-list";
     }
 
+    @PostMapping("/admin/products/adjust-stock")
+    @AdminOnly
+    public String adminAdjustStock(@RequestParam("quantity") int quantity,
+                                   @RequestParam("id") Long id) {
+        productService.setItemStock(id, quantity);
+        return "redirect:/admin/products/detail/" + id + "?category=item";
+    }
+    @PostMapping("/admin/products/adjust-remaining-uses")
+    @AdminOnly
+    public String adminAdjustRemainingUses(@RequestParam("quantity") int quantity,
+                                           @RequestParam("id") Long id) {
+        productService.setTicketRemainingUses(id, quantity);
+        return "redirect:/admin/products/detail/" + id + "?category=ticket";
+    }
+
 }

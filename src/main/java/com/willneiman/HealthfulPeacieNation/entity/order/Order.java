@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.AbstractAuditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -22,7 +21,7 @@ import static javax.persistence.FetchType.*;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "orders")
-public class Order extends AbstractAuditable<Member, Long> {
+public class Order {
 
     @Id @GeneratedValue
     @Column(name = "order_id")
@@ -42,7 +41,7 @@ public class Order extends AbstractAuditable<Member, Long> {
     @CreatedDate
     private LocalDateTime orderDate;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderLine> orderLines = new ArrayList<>();
 
     public void addOrderLine(OrderLine orderLine) {

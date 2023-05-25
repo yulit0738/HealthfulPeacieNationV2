@@ -4,6 +4,7 @@ import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.entity.order.Order;
 import com.willneiman.HealthfulPeacieNation.entity.order.OrderLine;
 import com.willneiman.HealthfulPeacieNation.entity.order.PaymentMethod;
+import com.willneiman.HealthfulPeacieNation.entity.product.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,19 @@ public class OrderServiceTest {
 
         Member member = memberService.findMember(memberId);
 
+        System.out.println("member.getId() = " + member.getId());
         // When
+        int stockBeforeOrder = ((Item)productService.findProduct(productId)).getStock();
+        System.out.println("stockBeforeOrder = " + stockBeforeOrder);
         Long orderId = orderService.order(productId, member, paymentMethod, quantity);
+        System.out.println("When orderId = " + orderId);
 
         // Then
         Order order = orderService.findOrder(orderId);
-        System.out.println("order.getId() = " + order.getId());
+        System.out.println("Then order.getId() = " + order.getId());
+        System.out.println("order.getOrderLines().get(0).getOrderCount() = " + order.getOrderLines().get(0).getOrderCount());
+        int stockAfterOrder = (((Item)order.getOrderLines().get(0).getProduct()).getStock());
+        System.out.println("stockAfterOrder = " + stockAfterOrder);
 
         assertEquals(memberId, order.getMember().getId());
         assertEquals(paymentMethod, order.getPaymentMethod());

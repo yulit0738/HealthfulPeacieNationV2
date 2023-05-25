@@ -29,4 +29,10 @@ public class OrderRepository {
     public Order findOne(Long id){
         return em.find(Order.class, id);
     }
+
+    public List<Order> findAllByMemberId(Long id) {
+        return em.createQuery("select o from Order o where o.member.id = :memberId", Order.class)
+                .setParameter("memberId", id)
+                .getResultList();
+    }
 }

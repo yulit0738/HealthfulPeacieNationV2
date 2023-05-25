@@ -4,7 +4,10 @@ import com.willneiman.HealthfulPeacieNation.annotation.LoginOnly;
 import com.willneiman.HealthfulPeacieNation.entity.member.Member;
 import com.willneiman.HealthfulPeacieNation.entity.member.MyInformationForm;
 import com.willneiman.HealthfulPeacieNation.entity.member.PasswordCheckForm;
+import com.willneiman.HealthfulPeacieNation.entity.order.Order;
+import com.willneiman.HealthfulPeacieNation.entity.order.OrderLine;
 import com.willneiman.HealthfulPeacieNation.service.MemberService;
+import com.willneiman.HealthfulPeacieNation.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MypageController {
 
     private final MemberService memberService;
+    private final OrderService orderService;
 
     @GetMapping("/my/info")
     @LoginOnly
@@ -80,7 +85,16 @@ public class MypageController {
 
     @GetMapping("my/orders")
     @LoginOnly
-    public String mypageOrdersView(){
+    public String mypageOrdersView(HttpSession session, Model model){
+        Member member = (Member)session.getAttribute("member");
+        List<Order> orderList = orderService.orderListByMember(member.getId());
+
+        for(Order order : orderList) {
+            List<OrderLine> orderLines = orderService.findOrderLinesByOrderId(order.getId());
+            order.setOrderLines(orderLines);
+        }
+
+        model.addAttribute("orderList", orderList);
         return "members/myorders";
     }
 

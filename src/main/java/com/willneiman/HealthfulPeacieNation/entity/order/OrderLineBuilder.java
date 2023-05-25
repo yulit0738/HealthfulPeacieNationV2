@@ -26,8 +26,8 @@ public class OrderLineBuilder {
         return this;
     }
 
-    public OrderLineBuilder setOrderPrice(int quantity, int price) {
-        this.orderPrice = quantity * price;
+    public OrderLineBuilder setOrderPrice(int price) {
+        this.orderPrice = price;
         return this;
     }
 

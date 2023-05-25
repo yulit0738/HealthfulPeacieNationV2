@@ -1,0 +1,158 @@
+body {
+	background-color: #e6e6e6;
+	height: 100%;
+}
+
+.side-bar {
+	width: 150px;
+}
+
+.body-container {
+	display: flex;
+	max-width: 1000px;
+	min-height: auto;
+	background-color: #fff;
+	margin: 0 auto;
+	height: 100%;
+	max-width: 1000px;
+}
+
+.body-content {
+	width: 800px;
+	min-height: 700px;
+	border-left: 1px solid #ddd;
+	padding: 20px;
+	margin-bottom: 100px;
+}
+
+.content-head {
+	font-weight: bold;
+}
+
+.menu-my-order {
+	color: #5F32FF;
+	font-weight: bold;
+}
+
+.order-created-at {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.order-payment-method {
+	margin-left: 10px;
+	display: inline-block;
+	background-color: orange;
+	color: white;
+	font-size: 14px;
+	padding: 3px 10px;
+	border-radius: 15px;
+}
+
+.order-container {
+	display: flex;
+	align-items: center;
+	width: 750px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 15px;
+}
+
+.order-status {
+	margin-left: 15px;
+	margin-right: 20px;
+	font-weight: bold;
+	color: white;
+	background-color: #3ADF00;
+	padding: 5px 10px;
+	border-radius: 15px;
+}
+
+.order-thumbnail {
+	display: block;
+	width: 100px;
+	height: 100px;
+	background-size: cover;
+	background-position: center;
+	margin: 0 auto;
+}
+
+.order-info {
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center;
+}
+
+.order-info h3 {
+	margin: 0;
+}
+
+.order-info .order-component {
+	margin: 5px 0;
+}
+
+.refund-claim {
+	margin-left: 10px;
+	display: inline-block;
+	font-size: 14px;
+    background-color: #FF8B8B;
+    margin-right: 15px;
+    color: #fff;
+    border-radius: 5px;
+	padding: 3px 10px;
+    transition: background-color 0.3s;
+}
+
+.refund-claim:hover {
+    background-color: #FF3C3C;
+}
+
+.refund-claim-btn {
+	background-color: transparent;
+	border: none;
+	color: #fff;
+    cursor: pointer;
+}
+
+.exchange-refund-claim {
+	margin-left: 10px;
+	display: inline-block;
+	font-size: 14px;
+    background-color: #93C8FF;
+    margin-right: 15px;
+    color: #fff;
+    border-radius: 5px;
+	padding: 3px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.exchange-refund-claim:hover {
+    background-color: #3394E1;
+}
+
+.exchange-in-progress,
+.refund-in-progress {
+	margin-left: 10px;
+	display: inline-block;
+	font-size: 14px;
+    background-color: #bfbfbf;
+    margin-right: 15px;
+    color: #fff;
+    border-radius: 5px;
+	padding: 3px 10px;
+    cursor: not-allowed;
+}
+
+.review-btn {
+	margin-left: 15px;
+	margin-right: 20px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+}

@@ -84,7 +84,7 @@ public class ProductRepository {
         return (int) Math.ceil((double) totalProducts / pageable.getPageSize());
     }
     @Transactional
-    public void adjustStock(Long id, int adjustment) {
+    public void adjustStock(Long id, Integer adjustment) {
         Item item = em.find(Item.class, id);
         if (item != null) {
             int newStock = item.getStock() - adjustment;
@@ -94,6 +94,32 @@ public class ProductRepository {
             item.setStock(newStock);
         } else {
             throw new IllegalArgumentException("Invalid itemId: " + id);
+        }
+    }
+
+    @Transactional
+    public void setStock(Long id, Integer quantity) {
+        if (quantity == null || quantity < 0) {
+            throw new IllegalArgumentException("Invalid stock for adjustment: " + quantity);
+        }
+        Item item = em.find(Item.class, id);
+        if(item != null) {
+            item.setStock(quantity);
+        } else {
+            throw new IllegalArgumentException("Invalid itemId: " + id);
+        }
+    }
+
+    @Transactional
+    public void setRemainingUses(Long id, Integer quantity) {
+        if (quantity == null || quantity < 0) {
+            throw new IllegalArgumentException("Invalid remainingUses for adjustment: " + quantity);
+        }
+        Ticket ticket = em.find(Ticket.class, id);
+        if(ticket != null) {
+            ticket.setRemainingUses(quantity);
+        } else {
+            throw new IllegalArgumentException("Invalid TicketId: " + id);
         }
     }
 
